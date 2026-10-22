@@ -5,10 +5,11 @@ import {
   Building2,
   X,
   Search,
+  ArrowRight,
 } from 'lucide-react';
 
 export const WarehousesView: React.FC = () => {
-  const { warehouses, addActivity, currentUser } = useApp();
+  const { warehouses, addActivity, currentUser, setActiveTab } = useApp();
   const [selectedWarehouseId, setSelectedWarehouseId] = useState<string>(warehouses[0].id);
   const [showRequisitionModal, setShowRequisitionModal] = useState(false);
   const [requisitionItem, setRequisitionItem] = useState<InventoryItem | null>(null);
@@ -36,6 +37,23 @@ export const WarehousesView: React.FC = () => {
 
   return (
     <div className="p-5 space-y-5 max-w-[1600px] mx-auto bg-[#F0F5FA]">
+      {/* Quick link banner to Partner Requests */}
+      <div className="bg-[#EEF2FF] border border-[#C7D4FE] p-3 rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs">
+        <div className="flex items-center gap-2">
+          <Building2 className="w-4 h-4 text-[#2853f3] shrink-0" />
+          <span className="text-[#152B44] font-medium">
+            Warehouse Partner Network: Manage and audit facility registrations, documents, and certification requests.
+          </span>
+        </div>
+        <button
+          onClick={() => setActiveTab('partner-requests')}
+          className="text-xs font-bold text-[#2853f3] hover:underline flex items-center gap-1 cursor-pointer whitespace-nowrap"
+        >
+          <span>View Partner Requests</span>
+          <ArrowRight className="w-3.5 h-3.5" />
+        </button>
+      </div>
+
       {/* Top Depot Selector Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
         {warehouses.map((wh) => {
@@ -47,8 +65,8 @@ export const WarehousesView: React.FC = () => {
               onClick={() => setSelectedWarehouseId(wh.id)}
               className={`p-3.5 rounded-lg border transition-all cursor-pointer shadow-2xs ${
                 isSelected
-                  ? 'bg-white border-[#4688C8] ring-1 ring-[#4688C8]'
-                  : 'bg-white border-[#CFE2F2] hover:border-[#4688C8]'
+                  ? 'bg-white border-[#2853f3] ring-1 ring-[#2853f3]'
+                  : 'bg-white border-[#CFE2F2] hover:border-[#2853f3]'
               }`}
             >
               <div className="flex items-center justify-between pb-1.5 border-b border-[#E8F2FA]">
@@ -73,7 +91,7 @@ export const WarehousesView: React.FC = () => {
 
               <div className="mt-2.5 pt-1.5 border-t border-[#E8F2FA] flex items-center justify-between text-xs">
                 <span className="text-[#516C8A]">Stock:</span>
-                <span className="font-semibold text-[#4688C8]">
+                <span className="font-semibold text-[#2853f3]">
                   {wh.currentStockTons} / {wh.totalCapacityTons} T
                 </span>
               </div>
@@ -87,9 +105,9 @@ export const WarehousesView: React.FC = () => {
         <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-[#CFE2F2]">
           <div>
             <div className="flex items-center gap-2">
-              <Building2 className="w-4 h-4 text-[#4688C8]" />
+              <Building2 className="w-4 h-4 text-[#2853f3]" />
               <h2 className="text-sm font-bold text-[#152B44]">{activeWarehouse.name}</h2>
-              <span className="text-[11px] bg-[#E8F3FC] text-[#4688C8] px-1.5 py-0.5 rounded font-mono">
+              <span className="text-[11px] bg-[#EEF2FF] text-[#2853f3] px-1.5 py-0.5 rounded font-mono">
                 {activeWarehouse.code}
               </span>
             </div>
@@ -99,12 +117,12 @@ export const WarehousesView: React.FC = () => {
           </div>
 
           <div className="flex items-center gap-2.5">
-            <span className="text-xs font-semibold text-[#4688C8]">
+            <span className="text-xs font-semibold text-[#2853f3]">
               {Math.round((activeWarehouse.currentStockTons / activeWarehouse.totalCapacityTons) * 100)}% Capacity
             </span>
             <div className="w-20 bg-[#E8F2FA] h-2.5 rounded-full overflow-hidden border border-[#CFE2F2]">
               <div
-                className="bg-[#4688C8] h-full"
+                className="bg-[#2853f3] h-full"
                 style={{
                   width: `${(activeWarehouse.currentStockTons / activeWarehouse.totalCapacityTons) * 100}%`,
                 }}
@@ -122,7 +140,7 @@ export const WarehousesView: React.FC = () => {
               placeholder="Search depot inventory..."
               value={searchFilter}
               onChange={(e) => setSearchFilter(e.target.value)}
-              className="w-full pl-7 pr-3 py-1 bg-[#FFFFFF] border border-[#CFE2F2] rounded-md focus:outline-none focus:border-[#4688C8] text-[#152B44]"
+              className="w-full pl-7 pr-3 py-1 bg-[#FFFFFF] border border-[#CFE2F2] rounded-md focus:outline-none focus:border-[#2853f3] text-[#152B44]"
             />
           </div>
         </div>
@@ -155,7 +173,7 @@ export const WarehousesView: React.FC = () => {
                   <td className="py-2.5 px-3 text-right font-mono text-[#516C8A]">
                     {item.reserved.toLocaleString()} {item.unit}
                   </td>
-                  <td className="py-2.5 px-3 text-right font-mono font-bold text-[#4688C8]">
+                  <td className="py-2.5 px-3 text-right font-mono font-bold text-[#2853f3]">
                     {item.available.toLocaleString()} {item.unit}
                   </td>
                   <td className="py-2.5 px-3 text-right font-mono text-[#516C8A]">
@@ -179,7 +197,7 @@ export const WarehousesView: React.FC = () => {
                           setRequisitionItem(item);
                           setShowRequisitionModal(true);
                         }}
-                        className="px-2 py-0.5 text-[11px] bg-[#E8F2FA] hover:bg-[#CFE2F2] text-[#4688C8] rounded font-medium cursor-pointer"
+                        className="px-2 py-0.5 text-[11px] bg-[#EEF2FF] hover:bg-[#DCE5FF] text-[#2853f3] rounded font-medium cursor-pointer"
                       >
                         Restock
                       </button>
@@ -229,7 +247,7 @@ export const WarehousesView: React.FC = () => {
                   min={100}
                   value={requisitionAmount}
                   onChange={(e) => setRequisitionAmount(Number(e.target.value))}
-                  className="w-full px-2.5 py-1.5 border border-[#CFE2F2] rounded text-xs text-[#152B44] font-mono focus:outline-none focus:border-[#4688C8]"
+                  className="w-full px-2.5 py-1.5 border border-[#CFE2F2] rounded text-xs text-[#152B44] font-mono focus:outline-none focus:border-[#2853f3]"
                 />
               </div>
 
@@ -243,7 +261,7 @@ export const WarehousesView: React.FC = () => {
                 </button>
                 <button
                   type="submit"
-                  className="px-3 py-1 bg-[#4688C8] hover:bg-[#3374B2] text-white rounded font-medium cursor-pointer"
+                  className="px-3 py-1 bg-[#2853f3] hover:bg-[#1e42d9] text-white rounded font-medium cursor-pointer"
                 >
                   Submit
                 </button>

@@ -1,6 +1,6 @@
 @import "tailwindcss";
 @import "leaflet/dist/leaflet.css";
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Outfit:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap');
 
 /* RAHAT Refined Pastel Blue & Cream Palette */
 :root {
@@ -11,14 +11,14 @@
   --text-primary: #152B44;
   --text-secondary: #516C8A;
   --border-subtle: #CFE2F2;
-  --border-focus: #88BCE5;
-  --accent-primary: #4688C8;
-  --accent-hover: #3374B2;
-  --accent-light: #E8F3FC;
-  --accent-pastel: #D2E7F8;
+  --border-focus: #2853f3;
+  --accent-primary: #2853f3;
+  --accent-hover: #1e42d9;
+  --accent-light: #eef2ff;
+  --accent-pastel: #dce5ff;
   --color-critical: #D95D58;
   --color-warning: #DE8838;
-  --color-info: #4688C8;
+  --color-info: #2853f3;
   --color-success: #359868;
 }
 
@@ -31,28 +31,25 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Redesigned RAHAT Logo Typography: NURA Geometric Display Style in Dark Blue */
+/* RAHAT Logo Typography: Google Font 'Luckiest Guy' (Designed by Astigmatic) in Dark Blue #3A0CA3 */
 .rahat-logo-font {
-  font-family: 'Unbounded', 'Syne', 'Outfit', sans-serif;
-  font-weight: 900;
-  letter-spacing: 0.14em;
+  font-family: 'Luckiest Guy', cursive, sans-serif;
+  letter-spacing: 0.07em;
   text-transform: uppercase;
-  color: #0A2342; /* Dark Blue requested by user */
-  background: none;
-  -webkit-background-clip: unset;
-  -webkit-text-fill-color: #0A2342;
+  color: #3A0CA3; /* Dark Blue requested by user */
   display: inline-flex;
   align-items: center;
+  line-height: 1;
 }
 
 .rahat-logo-font-light {
-  font-family: 'Unbounded', 'Syne', 'Outfit', sans-serif;
-  font-weight: 900;
-  letter-spacing: 0.14em;
+  font-family: 'Luckiest Guy', cursive, sans-serif;
+  letter-spacing: 0.07em;
   text-transform: uppercase;
-  color: #0A2342;
+  color: #3A0CA3;
   display: inline-flex;
   align-items: center;
+  line-height: 1;
 }
 
 /* Custom leaflet map styling in pastel blue & cream tone */
@@ -72,4 +69,20 @@ body {
   margin: 12px 14px;
   line-height: 1.4;
   color: #152B44;
+}
+
+/* Sleek scrollbar for form panels */
+.form-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+.form-scrollbar::-webkit-scrollbar-track {
+  background: #F0F5FA;
+  border-radius: 8px;
+}
+.form-scrollbar::-webkit-scrollbar-thumb {
+  background: #C7D4FE;
+  border-radius: 8px;
+}
+.form-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #2853f3;
 }

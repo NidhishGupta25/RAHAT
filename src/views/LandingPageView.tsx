@@ -1,774 +1,302 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useApp } from '../context/AppContext';
 import {
-  ShieldCheck,
   ArrowRight,
+  LogIn,
   Activity,
   Layers,
-  Building2,
   Truck,
-  Radio,
-  Navigation,
-  ArrowUpRight,
-  CheckCircle2,
-  AlertTriangle,
-  PhoneCall,
-  Compass,
-  Waves,
-  CloudRain,
-  Wind,
+  Wifi,
+  Battery,
 } from 'lucide-react';
 import { RahatLogoText } from '../components/common/RahatLogoText';
 
 export const LandingPageView: React.FC = () => {
-  const { setCurrentPage, navigateToTab, disasters, warehouses, routes, dataSources } = useApp();
-  const [activeSchemaTab, setActiveSchemaTab] = useState<'telemetry' | 'allocation' | 'corridors'>('telemetry');
-
-  const healthyFeedsCount = dataSources.filter((d) => d.status === 'HEALTHY').length;
-
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
+  const { setCurrentPage } = useApp();
 
   return (
-    <div className="min-h-screen w-full bg-[#F0F5FA] text-[#152B44] flex flex-col selection:bg-[#CFE2F2] selection:text-[#152B44]">
+    <div className="min-h-screen w-full bg-[#F3F7FB] text-[#152B44] flex flex-col selection:bg-[#DCE5FF] selection:text-[#2853f3]">
       {/* 
-        NAVBAR:
-        Contains ONLY:
-        1. Home
-        2. Dashboard Operations ->
-        3. Login/Signin
+        TOP NAVBAR
+        Both buttons (Operations Dashboard & Sign In) filled with #2853F3 and white text/icons.
+        Clicking the RAHAT logo redirects to the main landing page.
       */}
-      <header className="sticky top-0 z-50 w-full bg-white/95 backdrop-blur-md border-b border-[#CFE2F2] shadow-2xs">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
-          {/* Logo with Disaster1.jpg & Redesigned RAHAT Typography */}
+      <header className="sticky top-0 z-50 w-full h-16 bg-white/90 backdrop-blur-md border-b border-[#D8E6F3] shadow-2xs">
+        <div className="max-w-7xl mx-auto h-full px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
+          {/* Logo with Disaster1.jpg & RAHAT in Luckiest Guy font (Redirects to main landing page on click) */}
           <div
-            onClick={scrollToTop}
-            className="flex items-center gap-3 cursor-pointer group select-none"
+            onClick={() => setCurrentPage('landing')}
+            className="flex items-center gap-3 select-none cursor-pointer group"
+            title="Return to Main Landing Page"
           >
             <div className="relative">
               <img
                 src="/Disaster1.jpg"
                 alt="RAHAT Official Emblem"
-                className="w-10 h-10 object-contain rounded-full ring-2 ring-[#CFE2F2] bg-white shadow-2xs p-0.5 group-hover:ring-[#4688C8] transition-all"
+                className="w-10 h-10 object-contain rounded-full ring-2 ring-[#CFE2F2] group-hover:ring-[#2853f3] bg-white shadow-2xs p-0.5 transition-all"
               />
-              <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-[#359868] border-2 border-white rounded-full animate-pulse" />
+              <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-[#359868] border-2 border-white rounded-full" />
             </div>
             <div className="flex flex-col">
-              <RahatLogoText className="h-6 w-auto" color="#0A2342" />
-              <span className="text-[9px] font-bold text-[#516C8A] uppercase tracking-wider mt-1">
-                Disaster Intelligence & Logistics
+              <RahatLogoText className="text-2xl leading-none group-hover:opacity-90 transition-opacity" color="#141478" />
+              <span className="text-[9px] font-bold text-[#516C8A] uppercase tracking-wider mt-0.5">
+                Disaster Intelligence Platform
               </span>
             </div>
           </div>
 
-          {/* 
-            Navigation Items: ONLY Home, Dashboard Operations ->, and Login/Signin 
-          */}
-          <nav className="flex items-center gap-2 sm:gap-3">
-            {/* 1. Home */}
+          {/* Nav Actions: Operations Dashboard & Sign In with background-color: #2853f3 */}
+          <nav className="flex items-center gap-2.5 sm:gap-3">
             <button
-              onClick={scrollToTop}
-              className="px-3.5 py-1.5 text-xs font-semibold text-[#152B44] hover:text-[#2C6EA6] hover:bg-[#E8F3FC] rounded-lg transition-colors cursor-pointer"
+              onClick={() => setCurrentPage('dashboard')}
+              className="px-4 py-2 rounded-xl bg-[#2853f3] hover:bg-[#1e42d9] border border-[#2853f3] text-xs sm:text-sm font-semibold text-white shadow-xs hover:shadow-md transition-all duration-150 cursor-pointer flex items-center gap-2 whitespace-nowrap shrink-0"
             >
-              Home
+              <span>Operations Dashboard</span>
+              <ArrowRight className="w-3.5 h-3.5 text-white" />
             </button>
 
-            {/* 2. Dashboard Operations -> */}
-            <button
-              onClick={() => navigateToTab('overview')}
-              className="px-3.5 py-1.5 text-xs font-bold text-[#2C6EA6] bg-[#E8F3FC] hover:bg-[#D2E7F8] border border-[#CFE2F2] rounded-lg transition-all cursor-pointer flex items-center gap-1.5 shadow-2xs"
-            >
-              <span>Dashboard Operations</span>
-              <ArrowRight className="w-3.5 h-3.5" />
-            </button>
-
-            {/* 3. Login/Signin */}
             <button
               onClick={() => setCurrentPage('login')}
-              className="px-3.5 py-1.5 text-xs font-bold text-white bg-[#4688C8] hover:bg-[#3374B2] rounded-lg transition-all cursor-pointer flex items-center gap-1.5 shadow-xs"
+              className="px-4 py-2 rounded-xl bg-[#2853f3] hover:bg-[#1e42d9] border border-[#2853f3] text-xs sm:text-sm font-semibold text-white shadow-xs hover:shadow-md transition-all duration-150 cursor-pointer flex items-center gap-2 whitespace-nowrap shrink-0"
             >
-              <ShieldCheck className="w-3.5 h-3.5" />
-              <span>Login / Sign In</span>
+              <LogIn className="w-3.5 h-3.5 text-white" />
+              <span>Sign In</span>
             </button>
           </nav>
         </div>
       </header>
 
-      {/* MAIN BODY */}
-      <main className="flex-1">
-        {/* HERO SECTION - REFERENCING STRUCTURE & SCHEMA */}
-        <section className="relative overflow-hidden pt-8 pb-14 md:pt-12 md:pb-18 border-b border-[#CFE2F2] bg-gradient-to-b from-[#F0F5FA] via-[#FAFBFD] to-[#F0F5FA]">
-          {/* Subtle background ambient glow */}
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-96 bg-gradient-to-r from-[#E8F2FA]/50 via-[#CFE2F2]/30 to-[#E8F3FC]/50 blur-3xl -z-10 pointer-events-none" />
+      {/* 
+        FIRST MAIN HERO SECTION:
+        - Faded and low-visibility background image from rahatbg.png
+        - Left side headline split into 3 lines with color: #141478
+        - Padding: pt-[35px] pb-[48px]
+      */}
+      <section className="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-[35px] pb-[48px] min-h-[calc(100vh-4rem)] flex items-center justify-center">
+        {/* Faded and very low visibility background image from rahatbg.png */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden flex items-center justify-center -z-10 select-none">
+          <img
+            src="/rahatbg.png"
+            alt=""
+            className="w-full h-full object-cover object-center opacity-[0.15] mix-blend-multiply pointer-events-none"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#F3F7FB]/75 via-transparent to-[#F3F7FB]/40" />
+        </div>
 
-          <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-              {/* Left Column: Mission, Title, and Action Triggers */}
-              <div className="lg:col-span-6 space-y-5">
-                {/* Status Badge */}
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#E8F3FC] border border-[#CFE2F2] text-[#2C6EA6] text-xs font-semibold shadow-2xs">
-                  <span className="w-2 h-2 rounded-full bg-[#359868] animate-pulse" />
-                  <span>National Crisis Command & Telemetry Grid</span>
-                </div>
+        <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+          {/* Left Column: Headline arranged across 3 distinct lines, color: #141478 */}
+          <div className="lg:col-span-6 space-y-6 text-center lg:text-left -translate-y-4 lg:-translate-y-8">
+            <div className="space-y-4">
+              <h1 className="text-3xl sm:text-4xl lg:text-[46px] font-black text-[#141478] tracking-tight leading-[1.12]">
+                <span className="block text-[#141478] pt-0 mb-0">Rapid Allocation</span>
+                <span className="block text-[#141478] mb-0 pb-0">for Hazard Assessment</span>
+                <span className="block text-[#141478] pb-0">and Transport</span>
+              </h1>
 
-                {/* Main Heading */}
-                <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-[#152B44] tracking-tight leading-[1.15]">
-                  Rapid Allocation for Hazard Assessment & Transport
-                </h1>
+              <p className="text-sm sm:text-base text-[#4D6582] font-normal leading-relaxed max-w-lg mx-auto lg:mx-0 pb-[30px]">
+                A unified platform connecting multi-hazard surveillance, predictive depot stockpiling, and priority green-corridor response for disaster relief across India.
+              </p>
+            </div>
+          </div>
 
-                {/* Purpose Description */}
-                <p className="text-sm sm:text-base text-[#516C8A] leading-relaxed font-normal">
-                  India's unified disaster response intelligence system. Combining real-time multi-hazard telemetry, automated district relief demand computation, and multimodal transport logistics to accelerate life-saving delivery during critical windows.
-                </p>
+          {/* Right Column: iPad Pro UI with pr-[40px] pb-0 pl-0 h-[558.125px] */}
+          <div
+            className="lg:col-span-6 flex justify-center lg:justify-end items-center pr-[40px] pb-0 pl-0 h-[558.125px]"
+          >
+            <div className="relative w-full max-w-[340px] sm:max-w-[370px] lg:max-w-[390px] lg:translate-x-6 xl:translate-x-8">
+              {/* Soft Ambient Depth Glow with #2853f3 tint */}
+              <div className="absolute -inset-4 bg-gradient-to-tr from-[#2853f3]/15 via-[#2853f3]/15 to-[#359868]/10 rounded-[2.5rem] blur-2xl pointer-events-none" />
 
-                {/* Action CTAs */}
-                <div className="pt-2 flex flex-wrap items-center gap-3">
-                  <button
-                    onClick={() => navigateToTab('overview')}
-                    className="px-5 py-2.5 bg-[#4688C8] hover:bg-[#3374B2] text-white font-semibold text-xs sm:text-sm rounded-xl shadow-xs hover:shadow-md transition-all flex items-center gap-2 cursor-pointer"
-                  >
-                    <span>Dashboard Operations</span>
-                    <ArrowRight className="w-4 h-4" />
-                  </button>
+              {/* Realistic iPad Hardware Unibody Chassis with pt-[14px] */}
+              <div className="relative bg-[#1C1D21] p-3 sm:p-3.5 pt-[14px] rounded-[32px] sm:rounded-[36px] shadow-[0_24px_50px_-12px_rgba(10,35,66,0.35),0_10px_20px_-8px_rgba(10,35,66,0.2)] ring-1 ring-black/40 border border-[#3A3D45]">
+                {/* Hardware Power / Sleep button on top edge */}
+                <div className="absolute -top-[3px] right-12 w-12 h-[3px] bg-[#3A3D45] rounded-t-sm" />
+                
+                {/* Hardware Volume rocker buttons on right edge */}
+                <div className="absolute -right-[3px] top-12 w-[3px] h-8 bg-[#3A3D45] rounded-r-sm" />
+                <div className="absolute -right-[3px] top-22 w-[3px] h-8 bg-[#3A3D45] rounded-r-sm" />
 
-                  <button
-                    onClick={() => setCurrentPage('login')}
-                    className="px-4 py-2.5 bg-white hover:bg-[#FAFBFD] text-[#2C6EA6] font-semibold text-xs sm:text-sm rounded-xl border border-[#CFE2F2] shadow-2xs hover:border-[#88BCE5] transition-all flex items-center gap-2 cursor-pointer"
-                  >
-                    <ShieldCheck className="w-4 h-4 text-[#4688C8]" />
-                    <span>Login / Sign In</span>
-                  </button>
-                </div>
-
-                {/* Quick Feature Metric Highlights */}
-                <div className="pt-3 grid grid-cols-3 gap-3 border-t border-[#CFE2F2]/80">
-                  <div className="bg-white/80 p-2.5 rounded-xl border border-[#CFE2F2]">
-                    <div className="text-[10px] font-semibold text-[#516C8A] uppercase">
-                      Hazard Types
+                {/* Top Chamfered Bezel with Front FaceTime Camera & Ambient Sensor */}
+                <div className="flex items-center justify-center pb-2">
+                  <div className="flex items-center gap-2">
+                    {/* Camera Lens */}
+                    <div className="w-2.5 h-2.5 rounded-full bg-[#0A0A0C] ring-1 ring-slate-800 flex items-center justify-center">
+                      <div className="w-1 h-1 rounded-full bg-[#18233C]" />
                     </div>
-                    <div className="text-lg font-bold text-[#152B44] mt-0.5">
-                      8 Monitored
-                    </div>
-                  </div>
-                  <div className="bg-white/80 p-2.5 rounded-xl border border-[#CFE2F2]">
-                    <div className="text-[10px] font-semibold text-[#516C8A] uppercase">
-                      Depots Linked
-                    </div>
-                    <div className="text-lg font-bold text-[#152B44] mt-0.5">
-                      {warehouses.length} Active Hubs
-                    </div>
-                  </div>
-                  <div className="bg-white/80 p-2.5 rounded-xl border border-[#CFE2F2]">
-                    <div className="text-[10px] font-semibold text-[#516C8A] uppercase">
-                      Sensor Feeds
-                    </div>
-                    <div className="text-lg font-bold text-[#359868] mt-0.5">
-                      {healthyFeedsCount} Online
-                    </div>
+                    {/* Ambient Light Sensor */}
+                    <div className="w-1.5 h-1.5 rounded-full bg-[#0D0E11]" />
                   </div>
                 </div>
-              </div>
 
-              {/* Right Column: Hero Visual - High-Resolution India Disaster Response Map */}
-              <div className="lg:col-span-6">
-                <div className="relative rounded-2xl p-2 bg-gradient-to-tr from-[#CFE2F2] via-white to-[#E8F3FC] border border-[#CFE2F2] shadow-sm">
-                  <div className="relative rounded-xl overflow-hidden bg-white border border-[#CFE2F2] shadow-inner group">
-                    <img
-                      src="/rahat_login_hero.jpg"
-                      alt="Disaster Response & Relief Map: India"
-                      className="w-full h-auto max-h-[460px] object-cover object-center transition-transform duration-500 group-hover:scale-[1.02]"
-                    />
-
-                    {/* Floating Telemetry Badges */}
-                    <div className="absolute top-3 left-3 bg-white/95 backdrop-blur-md px-3 py-1.5 rounded-lg border border-[#CFE2F2] shadow-xs flex items-center gap-2">
-                      <span className="w-2 h-2 rounded-full bg-[#D95D58] animate-ping" />
-                      <span className="text-[11px] font-bold text-[#152B44]">
-                        Live Spatial Telemetry
-                      </span>
+                {/* iPad Liquid Retina Display Screen (Lengthwise 3:4 portrait ratio) */}
+                <div className="relative bg-white rounded-[22px] overflow-hidden shadow-inner flex flex-col border border-slate-200 aspect-[3/4]">
+                  {/* iPadOS Status Bar */}
+                  <div className="w-full px-4 py-1.5 flex items-center justify-between text-[11px] font-semibold text-slate-700 select-none bg-white border-b border-slate-100 shrink-0">
+                    {/* Time */}
+                    <div className="flex items-center gap-1">
+                      <span>9:41</span>
                     </div>
 
-                    <div className="absolute bottom-3 left-3 right-3 bg-white/95 backdrop-blur-md px-3.5 py-2.5 rounded-lg border border-[#CFE2F2] shadow-xs flex items-center justify-between">
-                      <div className="flex items-center gap-2">
-                        <span className="w-2 h-2 rounded-full bg-[#359868]" />
-                        <span className="text-[11px] font-semibold text-[#152B44]">
-                          National Logistics Grid Active
-                        </span>
+                    {/* iPadOS Multitasking 3-dots Pill */}
+                    <div className="flex items-center gap-0.5 px-1.5 py-0.5 rounded-full bg-slate-100/80">
+                      <span className="w-1 h-1 rounded-full bg-slate-400" />
+                      <span className="w-1 h-1 rounded-full bg-slate-400" />
+                      <span className="w-1 h-1 rounded-full bg-slate-400" />
+                    </div>
+
+                    {/* Status Icons: Wi-Fi, Reception, Battery */}
+                    <div className="flex items-center gap-1.5 text-slate-600">
+                      <Wifi className="w-3 h-3 text-slate-700" />
+                      <div className="flex items-center gap-0.5">
+                        <span className="text-[10px] font-medium text-slate-500">100%</span>
+                        <Battery className="w-3.5 h-3.5 text-slate-700" />
                       </div>
-                      <button
-                        onClick={() => navigateToTab('map')}
-                        className="text-[11px] font-bold text-[#4688C8] hover:text-[#2C6EA6] flex items-center gap-1 cursor-pointer"
-                      >
-                        <span>Open GIS Map</span>
-                        <ArrowUpRight className="w-3.5 h-3.5" />
-                      </button>
                     </div>
                   </div>
+
+                  {/* 
+                    Seamless 3D Disaster Simulation Video
+                    - Centered and scaled inside the lengthwise iPad viewport
+                    - Zero controls, zero labels, zero black space
+                    - Background matches pure white canvas
+                  */}
+                  <div className="relative flex-1 w-full bg-white flex items-center justify-center overflow-hidden p-2">
+                    <video
+                      src="/RAHATvideo.mp4"
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                      className="w-full h-full object-contain select-none pointer-events-none"
+                    />
+                  </div>
+
+                  {/* iPadOS Bottom Home Indicator Bar */}
+                  <div className="w-full py-2 bg-white flex justify-center items-center shrink-0">
+                    <div className="w-28 sm:w-32 h-1 bg-slate-300 rounded-full" />
+                  </div>
                 </div>
               </div>
+
+              {/* Realistic Soft Contact Shadow beneath iPad */}
+              <div className="h-3 w-4/5 mx-auto bg-slate-900/10 rounded-full blur-md mt-2" />
             </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* LIVE OPERATIONAL METRICS BAR */}
-        <section className="py-6 bg-white border-b border-[#CFE2F2]">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              <div
-                onClick={() => navigateToTab('monitoring')}
-                className="bg-[#FAFBFD] hover:bg-[#F0F5FA] p-3.5 rounded-xl border border-[#CFE2F2] shadow-2xs transition-all cursor-pointer flex items-center gap-3"
-              >
-                <div className="w-10 h-10 rounded-lg bg-[#FBEAE9] text-[#D95D58] flex items-center justify-center shrink-0">
-                  <Radio className="w-5 h-5" />
-                </div>
-                <div>
-                  <div className="text-[11px] font-bold text-[#516C8A] uppercase tracking-wider">
-                    Hazard Alerts
-                  </div>
-                  <div className="text-lg font-extrabold text-[#152B44]">
-                    {disasters.length} Active Events
-                  </div>
-                </div>
+      {/* 
+        THREE HORIZONTAL BLOCKS (Restored on scroll below main hero section):
+        1. HAZARD INGESTION
+        2. INTELLIGENT STOCKING
+        3. RELIEF TRANSPORT
+      */}
+      <section className="w-full bg-white border-t border-[#D8E6F3] py-12 sm:py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+            {/* Block 1: HAZARD INGESTION */}
+            <div className="bg-[#F8FAFD] p-6 rounded-2xl border border-[#D8E6F3] hover:border-[#2853f3] transition-all space-y-3.5 shadow-2xs">
+              <div className="w-10 h-10 rounded-xl bg-[#EEF2FF] text-[#2853f3] flex items-center justify-center shrink-0">
+                <Activity className="w-5 h-5" />
               </div>
-
-              <div
-                onClick={() => navigateToTab('warehouses')}
-                className="bg-[#FAFBFD] hover:bg-[#F0F5FA] p-3.5 rounded-xl border border-[#CFE2F2] shadow-2xs transition-all cursor-pointer flex items-center gap-3"
-              >
-                <div className="w-10 h-10 rounded-lg bg-[#E8F3FC] text-[#4688C8] flex items-center justify-center shrink-0">
-                  <Building2 className="w-5 h-5" />
+              <div className="space-y-1">
+                <div className="text-[11px] font-black text-[#2853f3] uppercase tracking-wider">
+                  1. HAZARD INGESTION
                 </div>
-                <div>
-                  <div className="text-[11px] font-bold text-[#516C8A] uppercase tracking-wider">
-                    Depot Inventory
-                  </div>
-                  <div className="text-lg font-extrabold text-[#152B44]">
-                    {warehouses.length} National Hubs
-                  </div>
-                </div>
-              </div>
-
-              <div
-                onClick={() => navigateToTab('logistics')}
-                className="bg-[#FAFBFD] hover:bg-[#F0F5FA] p-3.5 rounded-xl border border-[#CFE2F2] shadow-2xs transition-all cursor-pointer flex items-center gap-3"
-              >
-                <div className="w-10 h-10 rounded-lg bg-[#E8F3FC] text-[#4688C8] flex items-center justify-center shrink-0">
-                  <Truck className="w-5 h-5" />
-                </div>
-                <div>
-                  <div className="text-[11px] font-bold text-[#516C8A] uppercase tracking-wider">
-                    Transit Corridors
-                  </div>
-                  <div className="text-lg font-extrabold text-[#152B44]">
-                    {routes.length} Active Convoys
-                  </div>
-                </div>
-              </div>
-
-              <div
-                onClick={() => navigateToTab('overview')}
-                className="bg-[#FAFBFD] hover:bg-[#F0F5FA] p-3.5 rounded-xl border border-[#CFE2F2] shadow-2xs transition-all cursor-pointer flex items-center gap-3"
-              >
-                <div className="w-10 h-10 rounded-lg bg-[#EAF5EF] text-[#359868] flex items-center justify-center shrink-0">
-                  <Activity className="w-5 h-5" />
-                </div>
-                <div>
-                  <div className="text-[11px] font-bold text-[#516C8A] uppercase tracking-wider">
-                    Telemetry Uptime
-                  </div>
-                  <div className="text-lg font-extrabold text-[#359868]">
-                    {healthyFeedsCount}/{dataSources.length} Feeds Online
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* CORE DISASTER RESPONSE SCHEMA & STRUCTURE */}
-        <section className="py-14 max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="text-center max-w-2xl mx-auto mb-10 space-y-2">
-            <span className="text-[11px] font-bold uppercase tracking-wider text-[#4688C8] bg-[#E8F3FC] px-3 py-1 rounded-full border border-[#CFE2F2]">
-              Operational Framework
-            </span>
-            <h2 className="text-2xl sm:text-3xl font-black text-[#152B44] tracking-tight pt-1">
-              Three-Tier Disaster Response Schema
-            </h2>
-            <p className="text-xs sm:text-sm text-[#516C8A]">
-              From real-time atmospheric sensing to multimodal delivery coordination on the ground.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {/* Schema Stage 1 */}
-            <div className="bg-white p-6 rounded-2xl border border-[#CFE2F2] shadow-2xs flex flex-col justify-between hover:border-[#88BCE5] transition-all">
-              <div>
-                <div className="flex items-center justify-between mb-4">
-                  <div className="w-10 h-10 rounded-xl bg-[#E8F3FC] text-[#4688C8] flex items-center justify-center font-bold">
-                    <CloudRain className="w-5 h-5" />
-                  </div>
-                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#E8F2FA] text-[#2C6EA6] border border-[#CFE2F2]">
-                    Phase 01
-                  </span>
-                </div>
-                <h3 className="text-base font-bold text-[#152B44] mb-2">
-                  Multi-Hazard Telemetry Ingestion
+                <h3 className="text-base font-bold text-[#141478] leading-snug">
+                  Multi-Hazard Monitoring &amp; Risk Assessment
                 </h3>
-                <p className="text-xs text-[#516C8A] leading-relaxed mb-4">
-                  Continuous ingestion of IMD Doppler radar reflectivity, Central Water Commission flood gauge stages, seismic waves, and coastal tsunami warning buoys.
-                </p>
-                <div className="space-y-2 text-xs text-[#152B44]">
-                  <div className="flex items-center gap-2">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-[#359868] shrink-0" />
-                    <span>Real-time storm tracking and cyclone landfall radius</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-[#359868] shrink-0" />
-                    <span>Sub-minute automated warning triage</span>
-                  </div>
-                </div>
               </div>
-
-              <button
-                onClick={() => navigateToTab('monitoring')}
-                className="mt-5 pt-3 border-t border-[#CFE2F2] text-xs font-semibold text-[#2C6EA6] hover:text-[#152B44] flex items-center justify-between cursor-pointer"
-              >
-                <span>Inspect Hazard Telemetry</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </button>
-            </div>
-
-            {/* Schema Stage 2 */}
-            <div className="bg-white p-6 rounded-2xl border border-[#CFE2F2] shadow-2xs flex flex-col justify-between hover:border-[#88BCE5] transition-all">
-              <div>
-                <div className="flex items-center justify-between mb-4">
-                  <div className="w-10 h-10 rounded-xl bg-[#E8F3FC] text-[#4688C8] flex items-center justify-center font-bold">
-                    <Layers className="w-5 h-5" />
-                  </div>
-                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#E8F2FA] text-[#2C6EA6] border border-[#CFE2F2]">
-                    Phase 02
-                  </span>
-                </div>
-                <h3 className="text-base font-bold text-[#152B44] mb-2">
-                  Deficit & Need Allocation Engine
-                </h3>
-                <p className="text-xs text-[#516C8A] leading-relaxed mb-4">
-                  Translates spatial impact zones into exact relief supply requirements, matching displaced population metrics with central warehouse stock reserves.
-                </p>
-                <div className="space-y-2 text-xs text-[#152B44]">
-                  <div className="flex items-center gap-2">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-[#359868] shrink-0" />
-                    <span>Dynamic drinking water, ration pack & medical kits estimation</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-[#359868] shrink-0" />
-                    <span>Inventory reservation locks preventing double-booking</span>
-                  </div>
-                </div>
-              </div>
-
-              <button
-                onClick={() => navigateToTab('allocation')}
-                className="mt-5 pt-3 border-t border-[#CFE2F2] text-xs font-semibold text-[#2C6EA6] hover:text-[#152B44] flex items-center justify-between cursor-pointer"
-              >
-                <span>View Allocation Engine</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </button>
-            </div>
-
-            {/* Schema Stage 3 */}
-            <div className="bg-white p-6 rounded-2xl border border-[#CFE2F2] shadow-2xs flex flex-col justify-between hover:border-[#88BCE5] transition-all">
-              <div>
-                <div className="flex items-center justify-between mb-4">
-                  <div className="w-10 h-10 rounded-xl bg-[#E8F3FC] text-[#4688C8] flex items-center justify-center font-bold">
-                    <Truck className="w-5 h-5" />
-                  </div>
-                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#E8F2FA] text-[#2C6EA6] border border-[#CFE2F2]">
-                    Phase 03
-                  </span>
-                </div>
-                <h3 className="text-base font-bold text-[#152B44] mb-2">
-                  Multimodal Route Logistics
-                </h3>
-                <p className="text-xs text-[#516C8A] leading-relaxed mb-4">
-                  Dynamic transit navigation routing road convoys around landslides and flood inundation zones, while synchronizing IAF air-drops and rail logistics.
-                </p>
-                <div className="space-y-2 text-xs text-[#152B44]">
-                  <div className="flex items-center gap-2">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-[#359868] shrink-0" />
-                    <span>Automated green corridor transit authorization</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-[#359868] shrink-0" />
-                    <span>Live GPS waypoint dispatch tracking</span>
-                  </div>
-                </div>
-              </div>
-
-              <button
-                onClick={() => navigateToTab('logistics')}
-                className="mt-5 pt-3 border-t border-[#CFE2F2] text-xs font-semibold text-[#2C6EA6] hover:text-[#152B44] flex items-center justify-between cursor-pointer"
-              >
-                <span>Review Transport Corridors</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </button>
-            </div>
-          </div>
-        </section>
-
-        {/* INTERACTIVE INTELLIGENCE SHOWCASE (Disaster3.png & Interactive Schema Tabs) */}
-        <section className="py-14 bg-[#FAFBFD] border-y border-[#CFE2F2]">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <div className="text-center max-w-2xl mx-auto mb-10 space-y-2">
-              <h2 className="text-2xl sm:text-3xl font-black text-[#152B44] tracking-tight">
-                Disaster Intelligence Architecture
-              </h2>
-              <p className="text-xs sm:text-sm text-[#516C8A]">
-                Intelligent situational awareness coordinating response units across the subcontinent.
+              <p className="text-xs sm:text-sm text-[#516C8A] leading-relaxed">
+                Integrate disaster data and predictive models for heavy rainfall, earthquakes, cyclones, and tsunami threats to support early awareness and risk assessment.
               </p>
             </div>
 
-            <div className="bg-white rounded-2xl border border-[#CFE2F2] p-6 sm:p-8 shadow-xs grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-              {/* Left Column: Schema Tabs & Information */}
-              <div className="lg:col-span-6 space-y-5">
-                <div className="flex gap-2 p-1 bg-[#E8F2FA] rounded-xl border border-[#CFE2F2]">
-                  <button
-                    onClick={() => setActiveSchemaTab('telemetry')}
-                    className={`flex-1 py-2 px-3 text-xs font-bold rounded-lg transition-all cursor-pointer ${
-                      activeSchemaTab === 'telemetry'
-                        ? 'bg-[#4688C8] text-white shadow-xs'
-                        : 'text-[#516C8A] hover:text-[#152B44]'
-                    }`}
-                  >
-                    Spatial Sensing
-                  </button>
-                  <button
-                    onClick={() => setActiveSchemaTab('allocation')}
-                    className={`flex-1 py-2 px-3 text-xs font-bold rounded-lg transition-all cursor-pointer ${
-                      activeSchemaTab === 'allocation'
-                        ? 'bg-[#4688C8] text-white shadow-xs'
-                        : 'text-[#516C8A] hover:text-[#152B44]'
-                    }`}
-                  >
-                    Relief Modeling
-                  </button>
-                  <button
-                    onClick={() => setActiveSchemaTab('corridors')}
-                    className={`flex-1 py-2 px-3 text-xs font-bold rounded-lg transition-all cursor-pointer ${
-                      activeSchemaTab === 'corridors'
-                        ? 'bg-[#4688C8] text-white shadow-xs'
-                        : 'text-[#516C8A] hover:text-[#152B44]'
-                    }`}
-                  >
-                    Fleet Routing
-                  </button>
-                </div>
-
-                {activeSchemaTab === 'telemetry' && (
-                  <div className="space-y-4">
-                    <h3 className="text-lg font-bold text-[#152B44]">
-                      Geospatial Surveillance & Radar Feeds
-                    </h3>
-                    <p className="text-xs text-[#516C8A] leading-relaxed">
-                      Unified layer blending satellite thermal sensing, Doppler storm radar, river gauge levels, and seismic event telemetry.
-                    </p>
-                    <ul className="space-y-2 text-xs text-[#152B44]">
-                      <li className="flex items-center gap-2">
-                        <CheckCircle2 className="w-4 h-4 text-[#359868] shrink-0" />
-                        <span>Interactive 100km radius impact containment zones</span>
-                      </li>
-                      <li className="flex items-center gap-2">
-                        <CheckCircle2 className="w-4 h-4 text-[#359868] shrink-0" />
-                        <span>High-frequency automated threat level classification</span>
-                      </li>
-                      <li className="flex items-center gap-2">
-                        <CheckCircle2 className="w-4 h-4 text-[#359868] shrink-0" />
-                        <span>Integration with verified observer telemetry</span>
-                      </li>
-                    </ul>
-                  </div>
-                )}
-
-                {activeSchemaTab === 'allocation' && (
-                  <div className="space-y-4">
-                    <h3 className="text-lg font-bold text-[#152B44]">
-                      Automated Relief Deficit Computation
-                    </h3>
-                    <p className="text-xs text-[#516C8A] leading-relaxed">
-                      Computes immediate district relief quotas based on displacement modeling and inventory reserves across key regional depots.
-                    </p>
-                    <ul className="space-y-2 text-xs text-[#152B44]">
-                      <li className="flex items-center gap-2">
-                        <CheckCircle2 className="w-4 h-4 text-[#359868] shrink-0" />
-                        <span>Rationing algorithms for water pouches, food kits & tents</span>
-                      </li>
-                      <li className="flex items-center gap-2">
-                        <CheckCircle2 className="w-4 h-4 text-[#359868] shrink-0" />
-                        <span>Critical deficit alerts for quick warehouse replenishment</span>
-                      </li>
-                      <li className="flex items-center gap-2">
-                        <CheckCircle2 className="w-4 h-4 text-[#359868] shrink-0" />
-                        <span>Audit-ready requisition proposals for command clearance</span>
-                      </li>
-                    </ul>
-                  </div>
-                )}
-
-                {activeSchemaTab === 'corridors' && (
-                  <div className="space-y-4">
-                    <h3 className="text-lg font-bold text-[#152B44]">
-                      Safe Transit & Multimodal Freight
-                    </h3>
-                    <p className="text-xs text-[#516C8A] leading-relaxed">
-                      Directs rescue convoys through open national highways, orchestrates rail rakes, and triggers emergency air drops for isolated valleys.
-                    </p>
-                    <ul className="space-y-2 text-xs text-[#152B44]">
-                      <li className="flex items-center gap-2">
-                        <CheckCircle2 className="w-4 h-4 text-[#359868] shrink-0" />
-                        <span>Automated detour around landslides and washed-out bridges</span>
-                      </li>
-                      <li className="flex items-center gap-2">
-                        <CheckCircle2 className="w-4 h-4 text-[#359868] shrink-0" />
-                        <span>Live GPS convoy telemetry and delivery verification</span>
-                      </li>
-                      <li className="flex items-center gap-2">
-                        <CheckCircle2 className="w-4 h-4 text-[#359868] shrink-0" />
-                        <span>Seamless handoff to NDRF and local district authorities</span>
-                      </li>
-                    </ul>
-                  </div>
-                )}
-
-                <div className="pt-2">
-                  <button
-                    onClick={() => navigateToTab('overview')}
-                    className="px-4 py-2 bg-[#E8F3FC] hover:bg-[#D2E7F8] text-[#2C6EA6] font-bold text-xs rounded-xl border border-[#CFE2F2] transition-colors flex items-center gap-2 cursor-pointer shadow-2xs"
-                  >
-                    <span>Dashboard Operations</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
-                  </button>
-                </div>
+            {/* Block 2: INTELLIGENT STOCKING */}
+            <div className="bg-[#F8FAFD] p-6 rounded-2xl border border-[#D8E6F3] hover:border-[#2853f3] transition-all space-y-3.5 shadow-2xs">
+              <div className="w-10 h-10 rounded-xl bg-[#E6F6EE] text-[#24824F] flex items-center justify-center shrink-0">
+                <Layers className="w-5 h-5" />
               </div>
-
-              {/* Right Column: 3D Isometric Disaster Response Illustration (Disaster3.png) */}
-              <div className="lg:col-span-6">
-                <div className="bg-[#E8F2FA] p-3 sm:p-4 rounded-2xl border border-[#CFE2F2]">
-                  <div className="relative rounded-xl overflow-hidden border border-[#CFE2F2] bg-white shadow-2xs">
-                    <img
-                      src="/Disaster3.png"
-                      alt="Disaster Response Cutout: India"
-                      className="w-full h-auto max-h-[360px] object-contain block mx-auto py-2"
-                    />
-                    <div className="absolute bottom-2.5 left-2.5 right-2.5 bg-white/95 backdrop-blur-xs p-2.5 rounded-lg border border-[#CFE2F2] shadow-xs flex items-center justify-between">
-                      <div className="flex items-center gap-2">
-                        <span className="w-2 h-2 rounded-full bg-[#359868] animate-ping" />
-                        <span className="text-[11px] font-bold text-[#152B44]">
-                          National Crisis Coordination Grid
-                        </span>
-                      </div>
-                      <button
-                        onClick={() => navigateToTab('map')}
-                        className="text-[10px] font-bold text-[#4688C8] hover:text-[#2C6EA6] flex items-center gap-1 cursor-pointer"
-                      >
-                        <span>Interactive Map</span>
-                        <ArrowUpRight className="w-3 h-3" />
-                      </button>
-                    </div>
-                  </div>
+              <div className="space-y-1">
+                <div className="text-[11px] font-black text-[#24824F] uppercase tracking-wider">
+                  2. INTELLIGENT STOCKING
                 </div>
+                <h3 className="text-base font-bold text-[#141478] leading-snug">
+                  Relief Demand &amp; Resource Allocation
+                </h3>
               </div>
+              <p className="text-xs sm:text-sm text-[#516C8A] leading-relaxed">
+                Assess relief requirements in affected areas and support the allocation of available food, medical supplies, and essential resources from depots based on local needs and stock availability.
+              </p>
+            </div>
+
+            {/* Block 3: RELIEF TRANSPORT */}
+            <div className="bg-[#F8FAFD] p-6 rounded-2xl border border-[#D8E6F3] hover:border-[#2853f3] transition-all space-y-3.5 shadow-2xs">
+              <div className="w-10 h-10 rounded-xl bg-[#FEF4E8] text-[#DE8838] flex items-center justify-center shrink-0">
+                <Truck className="w-5 h-5" />
+              </div>
+              <div className="space-y-1">
+                <div className="text-[11px] font-black text-[#DE8838] uppercase tracking-wider">
+                  3. RELIEF TRANSPORT
+                </div>
+                <h3 className="text-base font-bold text-[#141478] leading-snug">
+                  Route Planning &amp; Logistics Coordination
+                </h3>
+              </div>
+              <p className="text-xs sm:text-sm text-[#516C8A] leading-relaxed">
+                Support the movement of relief supplies by connecting resource availability, affected locations, and transport routes to help coordinate timely and efficient disaster response.
+              </p>
             </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* CORE CAPABILITIES MODULES */}
-        <section className="py-14 max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="text-center max-w-2xl mx-auto mb-10 space-y-2">
-            <h2 className="text-2xl sm:text-3xl font-black text-[#152B44] tracking-tight">
-              Operational Command Capabilities
-            </h2>
-            <p className="text-xs sm:text-sm text-[#516C8A]">
-              Modular tools tailored for district collectors, warehouse superintendents, and logistics officers.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {/* Capability 1 */}
-            <div
-              onClick={() => navigateToTab('map')}
-              className="bg-white p-5 rounded-2xl border border-[#CFE2F2] shadow-2xs hover:border-[#88BCE5] transition-all cursor-pointer flex flex-col justify-between group"
-            >
-              <div>
-                <div className="w-10 h-10 rounded-xl bg-[#E8F3FC] text-[#4688C8] flex items-center justify-center mb-3 group-hover:scale-105 transition-transform">
-                  <Navigation className="w-5 h-5" />
-                </div>
-                <h4 className="font-bold text-sm text-[#152B44] mb-1.5">
-                  Live GIS Geospatial Map
-                </h4>
-                <p className="text-xs text-[#516C8A] leading-relaxed">
-                  Interactive multi-layer geospatial visualization tracking storm tracks, seismic epicenters, river gauge levels, and warehouses.
-                </p>
-              </div>
-              <div className="mt-4 pt-3 border-t border-[#CFE2F2] text-[11px] font-bold text-[#2C6EA6] flex items-center justify-between">
-                <span>Open GIS Map</span>
-                <ArrowUpRight className="w-3.5 h-3.5" />
-              </div>
-            </div>
-
-            {/* Capability 2 */}
-            <div
-              onClick={() => navigateToTab('monitoring')}
-              className="bg-white p-5 rounded-2xl border border-[#CFE2F2] shadow-2xs hover:border-[#88BCE5] transition-all cursor-pointer flex flex-col justify-between group"
-            >
-              <div>
-                <div className="w-10 h-10 rounded-xl bg-[#E8F3FC] text-[#4688C8] flex items-center justify-center mb-3 group-hover:scale-105 transition-transform">
-                  <Activity className="w-5 h-5" />
-                </div>
-                <h4 className="font-bold text-sm text-[#152B44] mb-1.5">
-                  Multi-Hazard Feeds
-                </h4>
-                <p className="text-xs text-[#516C8A] leading-relaxed">
-                  Real-time telemetry ingestion from IMD Doppler Radars, Central Water Commission flood monitors, and seismological sensors.
-                </p>
-              </div>
-              <div className="mt-4 pt-3 border-t border-[#CFE2F2] text-[11px] font-bold text-[#2C6EA6] flex items-center justify-between">
-                <span>View Hazard Feeds</span>
-                <ArrowUpRight className="w-3.5 h-3.5" />
-              </div>
-            </div>
-
-            {/* Capability 3 */}
-            <div
-              onClick={() => navigateToTab('warehouses')}
-              className="bg-white p-5 rounded-2xl border border-[#CFE2F2] shadow-2xs hover:border-[#88BCE5] transition-all cursor-pointer flex flex-col justify-between group"
-            >
-              <div>
-                <div className="w-10 h-10 rounded-xl bg-[#E8F3FC] text-[#4688C8] flex items-center justify-center mb-3 group-hover:scale-105 transition-transform">
-                  <Building2 className="w-5 h-5" />
-                </div>
-                <h4 className="font-bold text-sm text-[#152B44] mb-1.5">
-                  Depot Inventory Control
-                </h4>
-                <p className="text-xs text-[#516C8A] leading-relaxed">
-                  Real-time auditing across national warehouses, reservation locks, stock replenishment alerts, and batch allocation tracking.
-                </p>
-              </div>
-              <div className="mt-4 pt-3 border-t border-[#CFE2F2] text-[11px] font-bold text-[#2C6EA6] flex items-center justify-between">
-                <span>Inspect Warehouses</span>
-                <ArrowUpRight className="w-3.5 h-3.5" />
-              </div>
-            </div>
-
-            {/* Capability 4 */}
-            <div
-              onClick={() => navigateToTab('logistics')}
-              className="bg-white p-5 rounded-2xl border border-[#CFE2F2] shadow-2xs hover:border-[#88BCE5] transition-all cursor-pointer flex flex-col justify-between group"
-            >
-              <div>
-                <div className="w-10 h-10 rounded-xl bg-[#E8F3FC] text-[#4688C8] flex items-center justify-center mb-3 group-hover:scale-105 transition-transform">
-                  <Truck className="w-5 h-5" />
-                </div>
-                <h4 className="font-bold text-sm text-[#152B44] mb-1.5">
-                  Logistics & Transport
-                </h4>
-                <p className="text-xs text-[#516C8A] leading-relaxed">
-                  Multimodal route computation covering highway convoys, freight trains, air force drops, and coastal watercraft corridors.
-                </p>
-              </div>
-              <div className="mt-4 pt-3 border-t border-[#CFE2F2] text-[11px] font-bold text-[#2C6EA6] flex items-center justify-between">
-                <span>Track Convoys</span>
-                <ArrowUpRight className="w-3.5 h-3.5" />
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* LOGO & COMMAND ACCESS CALLOUT BANNER */}
-        <section className="py-12 bg-white border-t border-[#CFE2F2]">
-          <div className="max-w-5xl mx-auto px-4 sm:px-6">
-            <div className="bg-gradient-to-r from-[#FAFBFD] via-[#F0F5FA] to-[#E8F3FC] p-6 sm:p-8 rounded-2xl border border-[#CFE2F2] shadow-2xs flex flex-col md:flex-row items-center justify-between gap-6">
-              {/* Left: Official Circular Crest + Text */}
-              <div className="flex items-center gap-5">
-                <img
-                  src="/rahat_logo.jpg"
-                  alt="RAHAT Seal"
-                  className="w-16 h-16 sm:w-20 sm:h-20 object-contain rounded-full ring-2 ring-[#CFE2F2] bg-white shadow-xs shrink-0"
-                />
-                <div className="space-y-1 text-center md:text-left">
-                  <div className="pt-0.5">
-                    <RahatLogoText className="h-6 sm:h-7 w-auto" color="#0A2342" />
-                  </div>
-                  <h3 className="text-base sm:text-lg font-bold text-[#152B44]">
-                    Ready to access national disaster operations?
-                  </h3>
-                  <p className="text-xs text-[#516C8A] max-w-md">
-                    Open visibility into live feeds and public assistance. Secure credentials required for inventory dispatch and convoy authorization.
-                  </p>
-                </div>
-              </div>
-
-              {/* Right: Actions */}
-              <div className="flex flex-col sm:flex-row items-center gap-2.5 shrink-0 w-full md:w-auto">
-                <button
-                  onClick={() => navigateToTab('overview')}
-                  className="w-full sm:w-auto px-4 py-2.5 bg-[#4688C8] hover:bg-[#3374B2] text-white text-xs font-bold rounded-xl shadow-xs transition-colors flex items-center justify-center gap-2 cursor-pointer"
-                >
-                  <span>Dashboard Operations</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </button>
-                <button
-                  onClick={() => setCurrentPage('login')}
-                  className="w-full sm:w-auto px-4 py-2.5 bg-white hover:bg-[#FAFBFD] text-[#2C6EA6] border border-[#CFE2F2] text-xs font-bold rounded-xl shadow-2xs transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
-                >
-                  <ShieldCheck className="w-3.5 h-3.5" />
-                  <span>Login / Sign In</span>
-                </button>
-              </div>
-            </div>
-          </div>
-        </section>
-      </main>
-
-      {/* FOOTER */}
-      <footer className="w-full bg-[#FAFBFD] border-t border-[#CFE2F2] py-8 px-4 sm:px-6">
-        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#516C8A]">
-          {/* Logo & Platform Name */}
-          <div className="flex items-center gap-2.5">
+      {/* 
+        FOOTER SECTION:
+        Increased font sizes calibrated with the UI measurement system.
+        Clicking the RAHAT logo redirects to the main landing page.
+      */}
+      <footer className="w-full bg-white border-t border-[#D8E6F3] py-6 sm:py-8 px-4 sm:px-6 lg:px-8 mt-auto">
+        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-[#516C8A]">
+          {/* Brand & Descriptor (Redirects to landing page on click) */}
+          <div
+            onClick={() => setCurrentPage('landing')}
+            className="flex items-center gap-3 cursor-pointer group select-none"
+            title="Return to Main Landing Page"
+          >
             <img
               src="/Disaster1.jpg"
               alt="RAHAT Logo"
-              className="w-7 h-7 object-contain rounded-full ring-1 ring-[#CFE2F2] bg-white"
+              className="w-[38px] h-[38px] rounded-full object-contain ring-1 ring-[#CFE2F2] group-hover:ring-[#2853f3] p-0.5 bg-white shadow-2xs transition-all"
             />
-            <RahatLogoText className="h-4.5 w-auto" color="#0A2342" />
-            <span className="text-[#CFE2F2]">|</span>
-            <span>Rapid Allocation for Hazard Assessment & Transport</span>
+            <div className="flex flex-col sm:flex-row sm:items-center sm:gap-2">
+              <span
+                className="font-extrabold text-[#141478] text-[20px] w-[60px] inline-block tracking-[0.06em] group-hover:text-[#2853f3] transition-colors"
+                style={{ fontFamily: "'Luckiest Guy', cursive, sans-serif" }}
+              >
+                RAHAT
+              </span>
+              <span className="text-xs sm:text-sm text-[#516C8A]">
+                · Rapid Allocation for Hazard Assessment and Transport
+              </span>
+            </div>
           </div>
 
-          {/* Nav links matching the 3 components + Emergency */}
-          <div className="flex items-center gap-5 text-xs font-medium">
+          {/* Navigation Links with Proportional Font Sizing */}
+          <div className="flex items-center gap-5 text-xs sm:text-sm font-semibold">
             <button
-              onClick={scrollToTop}
-              className="hover:text-[#2C6EA6] cursor-pointer"
+              onClick={() => setCurrentPage('dashboard')}
+              className="text-[#516C8A] hover:text-[#2853f3] transition-colors cursor-pointer py-1 px-2 rounded-lg hover:bg-[#EEF2FF]"
             >
-              Home
+              Operations Dashboard
             </button>
-            <button
-              onClick={() => navigateToTab('overview')}
-              className="hover:text-[#2C6EA6] cursor-pointer"
-            >
-              Dashboard Operations
-            </button>
+            <span className="text-slate-300" aria-hidden="true">·</span>
             <button
               onClick={() => setCurrentPage('login')}
-              className="text-[#2C6EA6] font-semibold hover:underline cursor-pointer"
+              className="text-[#516C8A] hover:text-[#2853f3] transition-colors cursor-pointer py-1 px-2 rounded-lg hover:bg-[#EEF2FF]"
             >
-              Login / Sign In
+              Sign In
             </button>
-            <span className="text-[#CFE2F2]">|</span>
-            <span className="text-[#516C8A] font-semibold flex items-center gap-1">
-              <PhoneCall className="w-3 h-3 text-[#359868]" />
-              <span>Emergency: 1070 / 112</span>
-            </span>
           </div>
         </div>
       </footer>

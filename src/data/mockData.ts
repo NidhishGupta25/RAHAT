@@ -65,6 +65,17 @@ export const INITIAL_USERS: Record<string, UserSession> = {
     badgeNumber: 'NDRF-LOG-0919',
     station: 'Arakkonam Regional Logistics Hub, Tamil Nadu',
   },
+  warehousePartner: {
+    id: 'usr-whp-01',
+    name: 'Venkatesh Ramanathan',
+    email: 'v.ramanathan@apexlogistics.in',
+    role: 'WAREHOUSE_PARTNER',
+    roleType: 'admin',
+    roleLabel: 'Warehouse Managing Partner & Depot Owner',
+    agency: 'Apex Coastal Relief Depository (CWC/NDMA Partner)',
+    badgeNumber: 'RAHAT-WHP-2024-8841',
+    station: 'Pamban Gateway, Rameshwaram, Tamil Nadu',
+  },
 };
 
 export const INITIAL_DISASTERS: DisasterEvent[] = [

@@ -172,7 +172,7 @@ export const GisMap: React.FC = () => {
             <div style="
               width: 24px;
               height: 24px;
-              background-color: #4688C8;
+              background-color: #2853f3;
               color: #ffffff;
               border: 2px solid #ffffff;
               border-radius: 4px;
@@ -181,9 +181,9 @@ export const GisMap: React.FC = () => {
               justify-content: center;
               font-size: 11px;
               font-weight: 700;
-              box-shadow: 0 2px 6px rgba(53,122,189,0.25);
+              box-shadow: 0 2px 6px rgba(40,83,243,0.3);
               cursor: pointer;
-              ${isSelected ? 'transform: scale(1.15); outline: 2px solid #4688C8;' : ''}
+              ${isSelected ? 'transform: scale(1.15); outline: 2px solid #2853f3;' : ''}
             ">
               W
             </div>
@@ -206,7 +206,7 @@ export const GisMap: React.FC = () => {
     if (mapLayers.routes) {
       routes.forEach((r) => {
         const isSelected = selectedRoute?.id === r.id;
-        let routeColor = '#4688C8';
+        let routeColor = '#2853f3';
         if (r.status === 'ROUTE_CLEARANCE' || r.bottleneckWarning) {
           routeColor = '#D9822B';
         }
@@ -263,7 +263,7 @@ export const GisMap: React.FC = () => {
           <button
             onClick={resetView}
             title="Reset to India view"
-            className="text-[11px] text-[#4688C8] hover:underline cursor-pointer font-normal"
+            className="text-[11px] text-[#2853f3] hover:underline cursor-pointer font-normal"
           >
             Reset
           </button>
@@ -276,10 +276,10 @@ export const GisMap: React.FC = () => {
             <span className="w-2 h-2 rounded-full bg-[#D9822B] inline-block"></span> Alert
           </span>
           <span className="flex items-center gap-1.5">
-            <span className="w-2 h-2 bg-[#4688C8] rounded-xs inline-block"></span> Depot
+            <span className="w-2 h-2 bg-[#2853f3] rounded-xs inline-block"></span> Depot
           </span>
           <span className="flex items-center gap-1.5">
-            <span className="w-3 h-0.5 bg-[#4688C8] inline-block"></span> Route
+            <span className="w-3 h-0.5 bg-[#2853f3] inline-block"></span> Route
           </span>
         </div>
       </div>

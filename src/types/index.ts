@@ -1,8 +1,9 @@
-export type AppPage = 'landing' | 'login' | 'dashboard';
+export type AppPage = 'landing' | 'login' | 'dashboard' | 'warehouse-dashboard';
 
 export type UserRole =
   | 'USER'
   | 'ADMIN'
+  | 'WAREHOUSE_PARTNER'
   | 'MONITORING_OFFICER'
   | 'RELIEF_COORDINATOR'
   | 'WAREHOUSE_OPERATOR'
@@ -155,3 +156,182 @@ export interface OperationalActivity {
   action: string;
   details: string;
 }
+
+// ==========================================
+// Warehouse Owner Dashboard Domain Models
+// ==========================================
+
+export type WarehouseResourceCategory =
+  | 'Food & Essentials'
+  | 'Water & Beverages'
+  | 'Medical & First Aid'
+  | 'Hygiene & Personal Care'
+  | 'Shelter & Bedding'
+  | 'Rescue & Safety';
+
+export type StockStatus = 'IN_STOCK' | 'LOW_STOCK' | 'CRITICAL' | 'EXPIRING_SOON';
+
+export interface WarehouseResourceItem {
+  id: string;
+  category: WarehouseResourceCategory;
+  name: string;
+  quantity: number;
+  unit: string;
+  reservedQuantity: number;
+  availableQuantity: number;
+  expiryDate: string; // YYYY-MM-DD or 'N/A'
+  stockStatus: StockStatus;
+  minThreshold: number;
+  batchNumber?: string;
+  rackLocation?: string;
+  storageCondition?: 'DRY' | 'COLD_CHAIN' | 'HEAVY_EQUIPMENT' | 'HAZMAT';
+  weightPerUnitKg?: number;
+}
+
+export type AllocationRequestPriority = 'CRITICAL' | 'HIGH' | 'MEDIUM';
+export type AllocationRequestStatus = 'PENDING' | 'ACCEPTED' | 'REJECTED' | 'DISPATCHED';
+
+export interface WarehouseAllocationRequest {
+  id: string;
+  disasterRefId: string;
+  disasterEvent: string;
+  affectedLocation: string;
+  requiredResources: {
+    resourceId?: string;
+    name: string;
+    category: WarehouseResourceCategory;
+    quantity: number;
+    unit: string;
+  }[];
+  quantity: number;
+  unit: string;
+  priority: AllocationRequestPriority;
+  requestDate: string;
+  status: AllocationRequestStatus;
+  rejectionReason?: string;
+  fulfillmentNotes?: string;
+  authorizedOfficer?: string;
+  targetDeliveryDeadline?: string;
+}
+
+export type DispatchStatus = 'SCHEDULED' | 'LOADING' | 'IN_TRANSIT' | 'DELIVERED';
+
+export interface WarehouseDispatch {
+  id: string;
+  allocationRequestId?: string;
+  destination: string;
+  state: string;
+  resources: {
+    name: string;
+    quantity: number;
+    unit: string;
+  }[];
+  totalQuantity: number;
+  transportDetails: {
+    carrierType: 'HEAVY_TRUCK' | 'TEMPERATURE_CONTROLLED' | 'IAF_AIRLIFT' | 'RIVER_BARGE';
+    vehicleNumber: string;
+    driverName: string;
+    driverContact: string;
+    escortAgency?: string;
+  };
+  dispatchDate: string;
+  expectedDelivery: string;
+  status: DispatchStatus;
+  trackingNumber: string;
+  etaHours?: number;
+  currentMilestone?: string;
+}
+
+export type InventoryTransactionType =
+  | 'STOCK_RECEIVED'
+  | 'STOCK_RESERVED'
+  | 'STOCK_DISPATCHED'
+  | 'STOCK_RETURNED'
+  | 'STOCK_ADJUSTED';
+
+export interface InventoryHistoryTransaction {
+  id: string;
+  transactionDate: string;
+  type: InventoryTransactionType;
+  resourceName: string;
+  category: WarehouseResourceCategory;
+  quantityChange: number; // positive for received/returned, negative for dispatched/reserved
+  unit: string;
+  referenceId: string;
+  updatedStock: number;
+  operator: string;
+  notes: string;
+}
+
+export type WarehouseNotificationType =
+  | 'ALLOCATION_REQUEST'
+  | 'LOW_STOCK'
+  | 'EXPIRING_RESOURCE'
+  | 'DISPATCH_UPDATE'
+  | 'VERIFICATION';
+
+export interface WarehouseNotification {
+  id: string;
+  type: WarehouseNotificationType;
+  title: string;
+  message: string;
+  timestamp: string;
+  isRead: boolean;
+  priority: 'HIGH' | 'MEDIUM' | 'LOW';
+  actionUrl?: string;
+  metaId?: string;
+}
+
+export interface WarehouseProfileData {
+  id: string;
+  name: string;
+  code: string;
+  organizationType: string;
+  warehouseType: string;
+  ownerName: string;
+  ownerTitle: string;
+  ownerEmail: string;
+  ownerPhone: string;
+  emergencyDeskPhone: string;
+  totalStorageCapacityTons: number;
+  coveredAreaSqFt: number;
+  coldChainCapacityTons: number;
+  operatingHours: string;
+  operationalStatus: 'ACTIVE' | 'STANDBY' | 'SURGE_EMERGENCY';
+  address: string;
+  district: string;
+  state: string;
+  pinCode: string;
+  coordinates: [number, number]; // [lat, lng]
+  verificationStatus: 'VERIFIED' | 'UNDER_REVIEW' | 'RE_AUDIT_PENDING';
+  verificationCertificateId: string;
+  ndmaPartnerTier: string;
+  auditScore: number;
+  lastAuditDate: string;
+  nextAuditDate: string;
+}
+
+export type PartnerRequestStatus = 'pending' | 'approved' | 'rejected';
+
+export interface WarehousePartnerRequest {
+  id: string;
+  ownerName: string;
+  warehouseName: string;
+  email: string;
+  mobile: string;
+  password?: string;
+  organizationType: 'Private Warehouse' | 'NGO' | 'Supplier' | 'Government' | 'Logistics Corporation';
+  address: string;
+  city: string;
+  state: string;
+  pincode: string;
+  documentType: string;
+  documentNumber: string;
+  documentFileName?: string;
+  status: PartnerRequestStatus;
+  rejectionReason?: string;
+  submittedAt: string;
+  reviewedAt?: string;
+  reviewedBy?: string;
+}
+

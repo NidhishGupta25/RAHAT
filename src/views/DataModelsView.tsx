@@ -20,14 +20,14 @@ export const DataModelsView: React.FC = () => {
       {/* Header Banner */}
       <div className="bg-white p-3.5 rounded-lg border border-[#CFE2F2] shadow-2xs flex flex-wrap items-center justify-between gap-3">
         <h2 className="text-xs font-bold text-[#152B44] flex items-center gap-2">
-          <Database className="w-4 h-4 text-[#4688C8]" />
+          <Database className="w-4 h-4 text-[#2853f3]" />
           Data Feeds & Model Telemetry
         </h2>
 
         <button
           onClick={refreshFeeds}
           disabled={isRefreshing}
-          className="flex items-center gap-1.5 px-2.5 py-1 text-xs font-medium text-[#4688C8] bg-[#E8F3FC] hover:bg-[#D8E8F7] border border-[#CFE2F2] rounded-md transition-all cursor-pointer"
+          className="flex items-center gap-1.5 px-2.5 py-1 text-xs font-medium text-[#2853f3] bg-[#EEF2FF] hover:bg-[#D8E8F7] border border-[#CFE2F2] rounded-md transition-all cursor-pointer"
         >
           <RefreshCw className={`w-3.5 h-3.5 ${isRefreshing ? 'animate-spin' : ''}`} />
           <span>Ping Feeds</span>
@@ -37,7 +37,7 @@ export const DataModelsView: React.FC = () => {
       {/* 1. Data Source Health Section */}
       <div className="space-y-2.5">
         <h3 className="text-xs font-bold text-[#152B44] flex items-center gap-1.5">
-          <ShieldCheck className="w-3.5 h-3.5 text-[#4688C8]" />
+          <ShieldCheck className="w-3.5 h-3.5 text-[#2853f3]" />
           Data Sources ({dataSources.length})
         </h3>
 
@@ -50,8 +50,8 @@ export const DataModelsView: React.FC = () => {
                 onClick={() => setSelectedSource(ds)}
                 className={`bg-white p-3.5 rounded-lg border transition-all cursor-pointer shadow-2xs ${
                   isSelected
-                    ? 'border-[#4688C8] ring-1 ring-[#4688C8] bg-[#FAFBFD]'
-                    : 'border-[#CFE2F2] hover:border-[#4688C8]'
+                    ? 'border-[#2853f3] ring-1 ring-[#2853f3] bg-[#FAFBFD]'
+                    : 'border-[#CFE2F2] hover:border-[#2853f3]'
                 }`}
               >
                 <div className="flex items-center justify-between pb-1.5 border-b border-[#E8F2FA]">
@@ -82,7 +82,7 @@ export const DataModelsView: React.FC = () => {
       {/* 2. Model Execution Status Section */}
       <div className="space-y-2.5 pt-1">
         <h3 className="text-xs font-bold text-[#152B44] flex items-center gap-1.5">
-          <Cpu className="w-3.5 h-3.5 text-[#4688C8]" />
+          <Cpu className="w-3.5 h-3.5 text-[#2853f3]" />
           Models ({models.length})
         </h3>
 
@@ -153,7 +153,7 @@ export const DataModelsView: React.FC = () => {
         <div className="bg-white p-3.5 rounded-lg border border-[#CFE2F2] shadow-2xs text-xs space-y-2">
           <div className="flex items-center justify-between pb-1.5 border-b border-[#E8F2FA]">
             <div className="font-bold text-xs text-[#152B44] flex items-center gap-1.5">
-              <Terminal className="w-3.5 h-3.5 text-[#4688C8]" />
+              <Terminal className="w-3.5 h-3.5 text-[#2853f3]" />
               Parameters: {selectedModel.modelName}
             </div>
             <span className="text-[10px] font-mono text-[#516C8A]">{selectedModel.id}</span>

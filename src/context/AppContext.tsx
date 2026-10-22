@@ -29,6 +29,7 @@ export type ActiveTab =
   | 'map'
   | 'allocation'
   | 'warehouses'
+  | 'partner-requests'
   | 'logistics'
   | 'data-models';
 
@@ -90,7 +91,7 @@ interface AppContextType {
 const AppContext = createContext<AppContextType | undefined>(undefined);
 
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  // Recommended user journey: 1. Public landing page (default), 2. Sign in (optional), 3. Disaster operations dashboard
+  // Creative minimalist landing page as first impression
   const [currentPage, setCurrentPage] = useState<AppPage>('landing');
   const [currentUser, setCurrentUser] = useState<UserSession | null>(null);
   const [activeTab, setActiveTab] = useState<ActiveTab>('overview');
@@ -133,13 +134,20 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   };
 
   const login = (userOrKey: keyof typeof INITIAL_USERS | UserSession) => {
+    let session: UserSession | null = null;
     if (typeof userOrKey === 'string' && INITIAL_USERS[userOrKey]) {
-      setCurrentUser(INITIAL_USERS[userOrKey]);
+      session = INITIAL_USERS[userOrKey];
     } else if (typeof userOrKey === 'object') {
-      setCurrentUser(userOrKey);
+      session = userOrKey;
     }
-    setCurrentPage('dashboard');
-    setActiveTab('overview');
+    setCurrentUser(session);
+
+    if (session?.role === 'WAREHOUSE_PARTNER' || session?.role === 'WAREHOUSE_OPERATOR') {
+      setCurrentPage('warehouse-dashboard');
+    } else {
+      setCurrentPage('dashboard');
+      setActiveTab('overview');
+    }
   };
 
   const logout = () => {

@@ -70,7 +70,7 @@ export const ReliefAllocationView: React.FC = () => {
 
           <div className="pt-2 sm:pt-0 sm:px-3">
             <div className="text-[11px] text-[#516C8A]">Dispatched</div>
-            <div className="text-lg font-bold text-[#4688C8] mt-0.5">{totalDispatched} Convoys</div>
+            <div className="text-lg font-bold text-[#2853f3] mt-0.5">{totalDispatched} Convoys</div>
           </div>
         </div>
       </div>
@@ -85,7 +85,7 @@ export const ReliefAllocationView: React.FC = () => {
               onClick={() => setFilterStatus(st)}
               className={`px-2.5 py-1 rounded text-xs font-medium cursor-pointer transition-colors ${
                 filterStatus === st
-                  ? 'bg-[#4688C8] text-white shadow-xs'
+                  ? 'bg-[#2853f3] text-white shadow-xs'
                   : 'bg-[#E8F2FA] text-[#152B44] hover:bg-[#CFE2F2]'
               }`}
             >
@@ -141,7 +141,7 @@ export const ReliefAllocationView: React.FC = () => {
                     )}
                   </td>
 
-                  <td className="py-2.5 px-3 text-right font-mono font-bold text-[#4688C8]">
+                  <td className="py-2.5 px-3 text-right font-mono font-bold text-[#2853f3]">
                     {alc.confirmedAllocation > 0
                       ? alc.confirmedAllocation.toLocaleString()
                       : alc.proposedAllocation.toLocaleString()}
@@ -155,7 +155,7 @@ export const ReliefAllocationView: React.FC = () => {
                     <span
                       className={`text-[9px] font-bold px-1.5 py-0.5 rounded ${
                         alc.status === 'DISPATCHED'
-                          ? 'bg-[#E8F3FC] text-[#4688C8] border border-[#CFE2F2]'
+                          ? 'bg-[#EEF2FF] text-[#2853f3] border border-[#CFE2F2]'
                           : alc.status === 'CONFIRMED'
                           ? 'bg-[#EBF7F1] text-[#359868] border border-[#CEEEDF]'
                           : alc.status === 'PENDING_DISPATCH'
@@ -173,7 +173,7 @@ export const ReliefAllocationView: React.FC = () => {
                         {alc.status === 'PROPOSED' && (
                           <button
                             onClick={() => handleOpenActionModal(alc)}
-                            className="px-2 py-1 bg-[#4688C8] hover:bg-[#3374B2] text-white rounded text-[11px] font-medium transition-colors cursor-pointer"
+                            className="px-2 py-1 bg-[#2853f3] hover:bg-[#1e42d9] text-white rounded text-[11px] font-medium transition-colors cursor-pointer"
                           >
                             Confirm
                           </button>
@@ -181,7 +181,7 @@ export const ReliefAllocationView: React.FC = () => {
                         {alc.status === 'CONFIRMED' && (
                           <button
                             onClick={() => handleDispatch(alc.id)}
-                            className="px-2 py-1 bg-[#E8F3FC] hover:bg-[#D8E8F7] text-[#4688C8] border border-[#4688C8] rounded text-[11px] font-medium transition-colors cursor-pointer"
+                            className="px-2 py-1 bg-[#EEF2FF] hover:bg-[#DCE5FF] text-[#2853f3] border border-[#2853f3] rounded text-[11px] font-medium transition-colors cursor-pointer"
                           >
                             Dispatch
                           </button>
@@ -219,7 +219,7 @@ export const ReliefAllocationView: React.FC = () => {
           <div className="bg-white rounded-lg border border-[#CFE2F2] shadow-xl max-w-md w-full p-4 text-xs animate-in fade-in duration-200">
             <div className="flex items-center justify-between pb-2 border-b border-[#CFE2F2]">
               <div className="flex items-center gap-1.5">
-                <PackageCheck className="w-4 h-4 text-[#4688C8]" />
+                <PackageCheck className="w-4 h-4 text-[#2853f3]" />
                 <h3 className="font-bold text-xs text-[#152B44]">Confirm Allocation</h3>
               </div>
               <button
@@ -267,7 +267,7 @@ export const ReliefAllocationView: React.FC = () => {
                   max={modalItem.availableStock}
                   value={allocatedQtyInput}
                   onChange={(e) => setAllocatedQtyInput(Number(e.target.value))}
-                  className="w-full px-2.5 py-1.5 border border-[#CFE2F2] rounded text-xs text-[#152B44] font-mono focus:outline-none focus:border-[#4688C8]"
+                  className="w-full px-2.5 py-1.5 border border-[#CFE2F2] rounded text-xs text-[#152B44] font-mono focus:outline-none focus:border-[#2853f3]"
                 />
               </div>
 
@@ -281,7 +281,7 @@ export const ReliefAllocationView: React.FC = () => {
                 </button>
                 <button
                   type="submit"
-                  className="px-3 py-1 bg-[#4688C8] hover:bg-[#3374B2] text-white rounded font-medium flex items-center gap-1 cursor-pointer"
+                  className="px-3 py-1 bg-[#2853f3] hover:bg-[#1e42d9] text-white rounded font-medium flex items-center gap-1 cursor-pointer"
                 >
                   <Check className="w-3 h-3" /> Confirm
                 </button>

@@ -24,9 +24,9 @@ export const LogisticsView: React.FC = () => {
   const getModeIcon = (mode: TransportRoute['mode']) => {
     switch (mode) {
       case 'TRUCK_CONVOY':
-        return <Truck className="w-4 h-4 text-[#4688C8]" />;
+        return <Truck className="w-4 h-4 text-[#2853f3]" />;
       case 'IAF_AIRLIFT':
-        return <Plane className="w-4 h-4 text-[#4688C8]" />;
+        return <Plane className="w-4 h-4 text-[#2853f3]" />;
       case 'RAIL_FREIGHT':
         return <Train className="w-4 h-4 text-[#D9822B]" />;
       case 'COASTAL_VESSEL':
@@ -48,7 +48,7 @@ export const LogisticsView: React.FC = () => {
               onClick={() => setFilterMode(m)}
               className={`px-3 py-1 rounded text-xs font-medium cursor-pointer transition-colors ${
                 filterMode === m
-                  ? 'bg-[#4688C8] text-white shadow-xs'
+                  ? 'bg-[#2853f3] text-white shadow-xs'
                   : 'bg-[#E8F2FA] text-[#152B44] hover:bg-[#CFE2F2]'
               }`}
             >
@@ -70,8 +70,8 @@ export const LogisticsView: React.FC = () => {
                 onClick={() => setSelectedRoute(route)}
                 className={`bg-white p-3.5 rounded-lg border transition-all cursor-pointer shadow-2xs ${
                   isSelected
-                    ? 'border-[#4688C8] ring-1 ring-[#4688C8] bg-[#FAFBFD]'
-                    : 'border-[#CFE2F2] hover:border-[#4688C8]'
+                    ? 'border-[#2853f3] ring-1 ring-[#2853f3] bg-[#FAFBFD]'
+                    : 'border-[#CFE2F2] hover:border-[#2853f3]'
                 }`}
               >
                 <div className="flex items-center justify-between pb-2 border-b border-[#E8F2FA]">
@@ -85,7 +85,7 @@ export const LogisticsView: React.FC = () => {
                   <span
                     className={`text-[9px] font-bold px-1.5 py-0.5 rounded ${
                       route.status === 'IN_TRANSIT'
-                        ? 'bg-[#E8F3FC] text-[#4688C8]'
+                        ? 'bg-[#EEF2FF] text-[#2853f3]'
                         : route.status === 'ROUTE_CLEARANCE'
                         ? 'bg-[#FEF4E8] text-[#D9822B]'
                         : 'bg-[#EBF7F1] text-[#359868]'
@@ -100,7 +100,7 @@ export const LogisticsView: React.FC = () => {
                     <div className="text-[10px] text-[#516C8A]">Origin</div>
                     <div className="font-semibold text-[#152B44]">{route.originName}</div>
                   </div>
-                  <ArrowRight className="w-3.5 h-3.5 text-[#4688C8] shrink-0" />
+                  <ArrowRight className="w-3.5 h-3.5 text-[#2853f3] shrink-0" />
                   <div className="text-right">
                     <div className="text-[10px] text-[#516C8A]">Destination</div>
                     <div className="font-semibold text-[#152B44]">{route.destinationName}</div>
@@ -133,7 +133,7 @@ export const LogisticsView: React.FC = () => {
             <div className="space-y-3.5 text-xs">
               <div className="flex items-center justify-between pb-2 border-b border-[#CFE2F2]">
                 <div className="flex items-center gap-1.5">
-                  <Navigation className="w-4 h-4 text-[#4688C8]" />
+                  <Navigation className="w-4 h-4 text-[#2853f3]" />
                   <h3 className="font-bold text-xs text-[#152B44]">Route Telemetry</h3>
                 </div>
                 <span className="font-mono text-[10px] text-[#516C8A]">{activeRoute.id}</span>
@@ -155,7 +155,7 @@ export const LogisticsView: React.FC = () => {
                 </div>
                 <div className="p-2 bg-[#E8F2FA] rounded border border-[#CFE2F2]">
                   <span className="text-[10px] text-[#516C8A]">Duration</span>
-                  <div className="font-bold text-xs text-[#4688C8] mt-0.5">{activeRoute.estimatedHours} Hours</div>
+                  <div className="font-bold text-xs text-[#2853f3] mt-0.5">{activeRoute.estimatedHours} Hours</div>
                 </div>
               </div>
 
@@ -178,7 +178,7 @@ export const LogisticsView: React.FC = () => {
 
               <button
                 onClick={() => setActiveTab('map')}
-                className="w-full py-2 px-3 bg-[#4688C8] hover:bg-[#3374B2] text-white rounded text-xs font-medium transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
+                className="w-full py-2 px-3 bg-[#2853f3] hover:bg-[#1e42d9] text-white rounded text-xs font-medium transition-colors flex items-center justify-center gap-1.5 cursor-pointer shadow-xs"
               >
                 <MapPin className="w-3.5 h-3.5" />
                 <span>View on Map</span>

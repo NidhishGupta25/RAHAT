@@ -50,11 +50,11 @@ export const OverviewView: React.FC = () => {
         {/* Heavy Rain & Flood Card */}
         <div
           onClick={() => handleSelectHazard('HEAVY_RAIN')}
-          className="bg-white p-3.5 rounded-lg border border-[#CFE2F2] hover:border-[#4688C8] transition-all cursor-pointer shadow-2xs group"
+          className="bg-white p-3.5 rounded-lg border border-[#CFE2F2] hover:border-[#2853f3] transition-all cursor-pointer shadow-2xs group"
         >
           <div className="flex items-center justify-between mb-2">
             <div className="flex items-center gap-2">
-              <div className="w-7 h-7 rounded bg-[#E8F3FC] text-[#4688C8] flex items-center justify-center">
+              <div className="w-7 h-7 rounded bg-[#EEF2FF] text-[#2853f3] flex items-center justify-center">
                 <CloudRain className="w-4 h-4" />
               </div>
               <h3 className="font-semibold text-xs text-[#152B44]">Heavy Rain / Flood</h3>
@@ -71,7 +71,7 @@ export const OverviewView: React.FC = () => {
         {/* Cyclones Card */}
         <div
           onClick={() => handleSelectHazard('CYCLONE')}
-          className="bg-white p-3.5 rounded-lg border border-[#CFE2F2] hover:border-[#4688C8] transition-all cursor-pointer shadow-2xs group"
+          className="bg-white p-3.5 rounded-lg border border-[#CFE2F2] hover:border-[#2853f3] transition-all cursor-pointer shadow-2xs group"
         >
           <div className="flex items-center justify-between mb-2">
             <div className="flex items-center gap-2">
@@ -92,7 +92,7 @@ export const OverviewView: React.FC = () => {
         {/* Earthquakes Card */}
         <div
           onClick={() => handleSelectHazard('EARTHQUAKE')}
-          className="bg-white p-3.5 rounded-lg border border-[#CFE2F2] hover:border-[#4688C8] transition-all cursor-pointer shadow-2xs group"
+          className="bg-white p-3.5 rounded-lg border border-[#CFE2F2] hover:border-[#2853f3] transition-all cursor-pointer shadow-2xs group"
         >
           <div className="flex items-center justify-between mb-2">
             <div className="flex items-center gap-2">
@@ -113,7 +113,7 @@ export const OverviewView: React.FC = () => {
         {/* Tsunamis Card */}
         <div
           onClick={() => handleSelectHazard('TSUNAMI')}
-          className="bg-white p-3.5 rounded-lg border border-[#CFE2F2] hover:border-[#4688C8] transition-all cursor-pointer shadow-2xs group"
+          className="bg-white p-3.5 rounded-lg border border-[#CFE2F2] hover:border-[#2853f3] transition-all cursor-pointer shadow-2xs group"
         >
           <div className="flex items-center justify-between mb-2">
             <div className="flex items-center gap-2">
@@ -137,7 +137,7 @@ export const OverviewView: React.FC = () => {
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 divide-y sm:divide-y-0 sm:divide-x divide-[#CFE2F2]">
           <div className="pt-2 sm:pt-0 sm:px-3">
             <div className="text-[11px] text-[#516C8A] flex items-center gap-1">
-              <Users className="w-3.5 h-3.5 text-[#4688C8]" /> Affected Population
+              <Users className="w-3.5 h-3.5 text-[#2853f3]" /> Affected Population
             </div>
             <div className="text-base font-bold text-[#152B44] mt-1">
               {totalAffected.toLocaleString()}
@@ -146,9 +146,9 @@ export const OverviewView: React.FC = () => {
 
           <div className="pt-2 sm:pt-0 sm:px-3">
             <div className="text-[11px] text-[#516C8A] flex items-center gap-1">
-              <Package className="w-3.5 h-3.5 text-[#4688C8]" /> Relief Demand
+              <Package className="w-3.5 h-3.5 text-[#2853f3]" /> Relief Demand
             </div>
-            <div className="text-base font-bold text-[#4688C8] mt-1">
+            <div className="text-base font-bold text-[#2853f3] mt-1">
               {totalDemand.toLocaleString()}
             </div>
           </div>
@@ -173,9 +173,9 @@ export const OverviewView: React.FC = () => {
 
           <div className="pt-2 sm:pt-0 sm:px-3">
             <div className="text-[11px] text-[#516C8A] flex items-center gap-1">
-              <Truck className="w-3.5 h-3.5 text-[#4688C8]" /> Active Convoys
+              <Truck className="w-3.5 h-3.5 text-[#2853f3]" /> Active Convoys
             </div>
-            <div className="text-base font-bold text-[#4688C8] mt-1">
+            <div className="text-base font-bold text-[#2853f3] mt-1">
               {activeDispatches}
             </div>
           </div>
@@ -199,7 +199,7 @@ export const OverviewView: React.FC = () => {
             <h2 className="text-xs font-bold text-[#152B44]">Hazard & Logistics Map</h2>
             <button
               onClick={() => setActiveTab('map')}
-              className="text-xs text-[#4688C8] font-medium hover:underline flex items-center gap-1 cursor-pointer"
+              className="text-xs text-[#2853f3] font-medium hover:underline flex items-center gap-1 cursor-pointer"
             >
               <span>Full Screen</span>
               <ExternalLink className="w-3 h-3" />
@@ -248,7 +248,7 @@ export const OverviewView: React.FC = () => {
                 <div className="p-2.5 bg-[#E8F2FA] rounded border border-[#CFE2F2] flex items-center justify-between">
                   <div>
                     <span className="text-[10px] text-[#516C8A]">{selectedDisaster.keyMetric.label}</span>
-                    <div className="text-base font-bold text-[#4688C8]">
+                    <div className="text-base font-bold text-[#2853f3]">
                       {selectedDisaster.keyMetric.value}{' '}
                       <span className="text-xs font-normal text-[#516C8A]">
                         {selectedDisaster.keyMetric.unit}
@@ -294,7 +294,7 @@ export const OverviewView: React.FC = () => {
           <div className="pt-3 border-t border-[#CFE2F2] mt-3 flex gap-2">
             <button
               onClick={() => setActiveTab('allocation')}
-              className="flex-1 py-1.5 px-3 bg-[#4688C8] text-white rounded text-xs font-medium hover:bg-[#3374B2] transition-colors cursor-pointer text-center"
+              className="flex-1 py-1.5 px-3 bg-[#2853f3] text-white rounded text-xs font-medium hover:bg-[#1e42d9] transition-colors cursor-pointer text-center shadow-xs"
             >
               Allocate Relief
             </button>
@@ -312,7 +312,7 @@ export const OverviewView: React.FC = () => {
       <div className="bg-white p-4 rounded-lg border border-[#CFE2F2] shadow-2xs">
         <div className="flex items-center justify-between mb-2.5 pb-2 border-b border-[#CFE2F2]">
           <div className="flex items-center gap-2">
-            <Clock className="w-3.5 h-3.5 text-[#4688C8]" />
+            <Clock className="w-3.5 h-3.5 text-[#2853f3]" />
             <h3 className="text-xs font-bold text-[#152B44]">
               Recent Activity
             </h3>
@@ -334,9 +334,9 @@ export const OverviewView: React.FC = () => {
                   act.category === 'DISASTER_ALERT'
                     ? 'bg-[#FDEEEB] text-[#D95D58]'
                     : act.category === 'ALLOCATION'
-                    ? 'bg-[#E8F3FC] text-[#4688C8]'
+                    ? 'bg-[#EEF2FF] text-[#2853f3]'
                     : act.category === 'DISPATCH'
-                    ? 'bg-[#E8F2FA] text-[#4688C8]'
+                    ? 'bg-[#EEF2FF] text-[#2853f3]'
                     : 'bg-[#E8F2FA] text-[#516C8A]'
                 }`}
               >

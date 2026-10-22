@@ -7,12 +7,12 @@ import {
   PackageCheck,
   Building2,
   Route,
-  Database,
   ShieldCheck,
   User,
   LogOut,
   Home,
   LogIn,
+  ClipboardCheck,
 } from 'lucide-react';
 import { RahatLogoText } from '../common/RahatLogoText';
 
@@ -31,58 +31,77 @@ const PUBLIC_ITEMS: NavItem[] = [
 const ADMIN_ITEMS: NavItem[] = [
   { id: 'allocation', label: 'Relief Allocation', icon: PackageCheck },
   { id: 'warehouses', label: 'Warehouses & Inventory', icon: Building2 },
+  { id: 'partner-requests', label: 'Partner Requests', icon: ClipboardCheck },
   { id: 'logistics', label: 'Routes & Logistics', icon: Route },
-  { id: 'data-models', label: 'Data & Models', icon: Database },
 ];
 
 export const Sidebar: React.FC = () => {
   const { activeTab, setActiveTab, currentUser, logout, setCurrentPage } = useApp();
+  const [pendingCount, setPendingCount] = React.useState(0);
 
   const isAdmin = currentUser?.roleType === 'admin';
+
+  React.useEffect(() => {
+    const updateCount = () => {
+      try {
+        const stored = localStorage.getItem('rahat_registered_partners');
+        if (stored) {
+          const partners = JSON.parse(stored);
+          if (Array.isArray(partners)) {
+            const pending = partners.filter((p: any) => p.status === 'pending').length;
+            setPendingCount(pending);
+            return;
+          }
+        }
+      } catch {
+        // fallback
+      }
+      setPendingCount(2); // default demo pending
+    };
+
+    updateCount();
+    window.addEventListener('rahat_partners_updated', updateCount);
+    window.addEventListener('storage', updateCount);
+    return () => {
+      window.removeEventListener('rahat_partners_updated', updateCount);
+      window.removeEventListener('storage', updateCount);
+    };
+  }, []);
 
   return (
     <aside className="w-56 bg-[#FFFFFF] border-r border-[#CFE2F2] flex flex-col justify-between shrink-0 h-screen sticky top-0 select-none">
       {/* Top Branding with Disaster1.jpg Logo & Redesigned RAHAT Typography */}
       <div>
         <div
-          onClick={() => setCurrentPage('landing')}
+          onClick={() => {
+            setCurrentPage('landing');
+          }}
           className="p-3.5 border-b border-[#CFE2F2] flex items-center gap-2.5 bg-[#FAFBFD] cursor-pointer hover:bg-[#F0F6FD] transition-colors group"
-          title="Return to Public Landing Page"
+          title="Return to Main Landing Page"
         >
           <img
             src="/Disaster1.jpg"
             alt="RAHAT Logo"
-            className="w-8.5 h-8.5 object-contain rounded-full ring-2 ring-[#CFE2F2] group-hover:ring-[#88BCE5] bg-white shadow-xs p-0.5 transition-all"
+            className="w-9 h-9 object-contain rounded-full ring-2 ring-[#CFE2F2] group-hover:ring-[#2853f3] bg-white shadow-xs p-0.5 transition-all"
           />
           <div className="flex items-center gap-2">
-            <RahatLogoText className="h-4.5 w-auto" color="#0A2342" />
-            <span
-              className={`text-[9px] px-1.5 py-0.5 rounded font-semibold border ${
-                currentUser
-                  ? isAdmin
-                    ? 'bg-[#E5F1FC] text-[#2C6EA6] border-[#C3DDF7]'
+            <RahatLogoText className="text-xl" color="#141478" />
+            {currentUser && (
+              <span
+                className={`text-[9px] px-1.5 py-0.5 rounded font-semibold border ${
+                  isAdmin
+                    ? 'bg-[#E5F1FC] text-[#2853f3] border-[#C3DDF7]'
                     : 'bg-[#EDF4FA] text-[#516C8A] border-[#D4E3F0]'
-                  : 'bg-[#EBF3FB] text-[#4688C8] border-[#CFE2F2]'
-              }`}
-            >
-              {currentUser ? (isAdmin ? 'ADMIN' : 'USER') : 'GUEST'}
-            </span>
+                }`}
+              >
+                {isAdmin ? 'ADMIN' : 'USER'}
+              </span>
+            )}
           </div>
         </div>
 
         {/* Navigation List */}
         <nav className="p-2.5 space-y-3">
-          {/* Landing Portal Link */}
-          <div>
-            <button
-              onClick={() => setCurrentPage('landing')}
-              className="w-full flex items-center gap-2 px-2.5 py-1.5 rounded-md text-xs font-semibold text-[#516C8A] hover:bg-[#F0F6FD] hover:text-[#2C6EA6] transition-colors cursor-pointer text-left"
-            >
-              <Home className="w-3.5 h-3.5 text-[#4688C8]" />
-              <span>Public Landing Page</span>
-            </button>
-          </div>
-
           <div>
             <div className="px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-[#516C8A]">
               Monitoring
@@ -97,11 +116,11 @@ export const Sidebar: React.FC = () => {
                     onClick={() => setActiveTab(item.id)}
                     className={`w-full flex items-center gap-2 px-2.5 py-1.5 rounded-md text-xs font-medium transition-colors cursor-pointer text-left ${
                       isActive
-                        ? 'bg-[#E8F3FC] text-[#2C6EA6] font-semibold border-l-2 border-[#4688C8]'
-                        : 'text-[#152B44] hover:bg-[#F0F6FD] hover:text-[#2C6EA6]'
+                        ? 'bg-[#EEF2FF] text-[#2853f3] font-semibold border-l-2 border-[#2853f3]'
+                        : 'text-[#152B44] hover:bg-[#F0F6FD] hover:text-[#2853f3]'
                     }`}
                   >
-                    <Icon className={`w-3.5 h-3.5 ${isActive ? 'text-[#4688C8]' : 'text-[#516C8A]'}`} />
+                    <Icon className={`w-3.5 h-3.5 ${isActive ? 'text-[#2853f3]' : 'text-[#516C8A]'}`} />
                     <span>{item.label}</span>
                   </button>
                 );
@@ -117,18 +136,26 @@ export const Sidebar: React.FC = () => {
               {ADMIN_ITEMS.map((item) => {
                 const Icon = item.icon;
                 const isActive = activeTab === item.id;
+                const isPartnerReq = item.id === 'partner-requests';
                 return (
                   <button
                     key={item.id}
                     onClick={() => setActiveTab(item.id)}
-                    className={`w-full flex items-center gap-2 px-2.5 py-1.5 rounded-md text-xs font-medium transition-colors cursor-pointer text-left ${
+                    className={`w-full flex items-center justify-between gap-1.5 px-2.5 py-1.5 rounded-md text-xs font-medium transition-colors cursor-pointer text-left ${
                       isActive
-                        ? 'bg-[#E8F3FC] text-[#2C6EA6] font-semibold border-l-2 border-[#4688C8]'
-                        : 'text-[#152B44] hover:bg-[#F0F6FD] hover:text-[#2C6EA6]'
+                        ? 'bg-[#EEF2FF] text-[#2853f3] font-semibold border-l-2 border-[#2853f3]'
+                        : 'text-[#152B44] hover:bg-[#F0F6FD] hover:text-[#2853f3]'
                     }`}
                   >
-                    <Icon className={`w-3.5 h-3.5 ${isActive ? 'text-[#4688C8]' : 'text-[#516C8A]'}`} />
-                    <span>{item.label}</span>
+                    <div className="flex items-center gap-2 min-w-0">
+                      <Icon className={`w-3.5 h-3.5 shrink-0 ${isActive ? 'text-[#2853f3]' : 'text-[#516C8A]'}`} />
+                      <span className="truncate">{item.label}</span>
+                    </div>
+                    {isPartnerReq && pendingCount > 0 && (
+                      <span className="text-[10px] font-bold px-1.5 py-0.2 rounded-full bg-amber-100 text-amber-800 border border-amber-200">
+                        {pendingCount}
+                      </span>
+                    )}
                   </button>
                 );
               })}
@@ -145,7 +172,7 @@ export const Sidebar: React.FC = () => {
               <div className="flex items-center justify-between">
                 <span className="text-[10px] text-[#516C8A] flex items-center gap-1 font-medium">
                   {isAdmin ? (
-                    <ShieldCheck className="w-3 h-3 text-[#4688C8]" />
+                    <ShieldCheck className="w-3 h-3 text-[#2853f3]" />
                   ) : (
                     <User className="w-3 h-3 text-[#516C8A]" />
                   )}
@@ -166,19 +193,11 @@ export const Sidebar: React.FC = () => {
           </div>
         ) : (
           <div>
-            <div className="mb-2 p-2 rounded-md bg-white border border-[#CFE2F2]">
-              <div className="flex items-center justify-between">
-                <span className="text-[10px] text-[#516C8A] font-medium">Guest Mode</span>
-                <span className="w-1.5 h-1.5 rounded-full bg-[#DE8838]"></span>
-              </div>
-              <div className="text-[11px] text-[#516C8A] truncate mt-0.5">Public Observability</div>
-            </div>
-
             <button
               onClick={() => setCurrentPage('login')}
-              className="w-full flex items-center justify-center gap-1.5 px-2.5 py-1.5 text-xs font-semibold text-white bg-[#4688C8] hover:bg-[#3374B2] rounded transition-colors cursor-pointer shadow-2xs"
+              className="w-full flex items-center justify-center gap-1.5 px-2.5 py-2 text-xs font-semibold text-white bg-[#2853f3] hover:bg-[#1e42d9] rounded-lg transition-colors cursor-pointer shadow-2xs"
             >
-              <LogIn className="w-3 h-3" />
+              <LogIn className="w-3.5 h-3.5" />
               <span>Sign In</span>
             </button>
           </div>

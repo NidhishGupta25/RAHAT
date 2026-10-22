@@ -21,18 +21,18 @@ export const LiveMapView: React.FC = () => {
         {/* Layer Toggles */}
         <div className="flex flex-wrap items-center gap-2 text-xs">
           <span className="font-semibold text-[#152B44] flex items-center gap-1.5 mr-1">
-            <Layers className="w-3.5 h-3.5 text-[#4688C8]" /> Layers:
+            <Layers className="w-3.5 h-3.5 text-[#2853f3]" /> Layers:
           </span>
 
           <button
             onClick={() => toggleMapLayer('rain')}
             className={`px-2 py-1 rounded text-xs font-medium border cursor-pointer flex items-center gap-1.5 ${
               mapLayers.rain
-                ? 'bg-[#E8F3FC] border-[#CFE2F2] text-[#4688C8]'
+                ? 'bg-[#EEF2FF] border-[#C7D4FE] text-[#2853f3]'
                 : 'bg-[#E8F2FA] border-[#CFE2F2] text-[#516C8A] opacity-60'
             }`}
           >
-            <span className="w-2 h-2 rounded-full bg-[#4688C8]"></span> Rain & Flood
+            <span className="w-2 h-2 rounded-full bg-[#2853f3]"></span> Rain & Flood
           </button>
 
           <button
@@ -74,22 +74,22 @@ export const LiveMapView: React.FC = () => {
             onClick={() => toggleMapLayer('warehouses')}
             className={`px-2 py-1 rounded text-xs font-medium border cursor-pointer flex items-center gap-1.5 ${
               mapLayers.warehouses
-                ? 'bg-[#E8F3FC] border-[#CFE2F2] text-[#4688C8]'
+                ? 'bg-[#EEF2FF] border-[#C7D4FE] text-[#2853f3]'
                 : 'bg-[#E8F2FA] border-[#CFE2F2] text-[#516C8A] opacity-60'
             }`}
           >
-            <Building2 className="w-3.5 h-3.5 text-[#4688C8]" /> Depots
+            <Building2 className="w-3.5 h-3.5 text-[#2853f3]" /> Depots
           </button>
 
           <button
             onClick={() => toggleMapLayer('routes')}
             className={`px-2 py-1 rounded text-xs font-medium border cursor-pointer flex items-center gap-1.5 ${
               mapLayers.routes
-                ? 'bg-[#E8F3FC] border-[#CFE2F2] text-[#4688C8]'
+                ? 'bg-[#EEF2FF] border-[#C7D4FE] text-[#2853f3]'
                 : 'bg-[#E8F2FA] border-[#CFE2F2] text-[#516C8A] opacity-60'
             }`}
           >
-            <Truck className="w-3.5 h-3.5 text-[#4688C8]" /> Routes
+            <Truck className="w-3.5 h-3.5 text-[#2853f3]" /> Routes
           </button>
         </div>
 
@@ -147,7 +147,7 @@ export const LiveMapView: React.FC = () => {
 
                 <div className="p-2.5 bg-[#E8F2FA] rounded border border-[#CFE2F2]">
                   <div className="text-[10px] text-[#516C8A]">{selectedDisaster.keyMetric.label}</div>
-                  <div className="text-base font-bold text-[#4688C8]">
+                  <div className="text-base font-bold text-[#2853f3]">
                     {selectedDisaster.keyMetric.value} {selectedDisaster.keyMetric.unit}
                   </div>
                 </div>
@@ -163,7 +163,7 @@ export const LiveMapView: React.FC = () => {
               </div>
             ) : selectedWarehouse ? (
               <div className="mt-3 space-y-3">
-                <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-[#E8F3FC] text-[#4688C8]">
+                <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-[#EEF2FF] text-[#2853f3]">
                   Logistics Depot
                 </span>
                 <h4 className="font-bold text-xs text-[#152B44]">{selectedWarehouse.name}</h4>
@@ -173,7 +173,7 @@ export const LiveMapView: React.FC = () => {
 
                 <div className="p-2.5 bg-[#E8F2FA] rounded border border-[#CFE2F2]">
                   <div className="text-[10px] text-[#516C8A]">Capacity</div>
-                  <div className="text-sm font-bold text-[#4688C8]">
+                  <div className="text-sm font-bold text-[#2853f3]">
                     {selectedWarehouse.currentStockTons} / {selectedWarehouse.totalCapacityTons} Tons
                   </div>
                 </div>
@@ -185,7 +185,7 @@ export const LiveMapView: React.FC = () => {
                       className="p-1.5 bg-white border border-[#CFE2F2] rounded flex justify-between text-[11px]"
                     >
                       <span className="text-[#152B44] truncate max-w-[130px]">{inv.resourceName}</span>
-                      <span className="font-semibold text-[#4688C8]">
+                      <span className="font-semibold text-[#2853f3]">
                         {inv.available.toLocaleString()} {inv.unit}
                       </span>
                     </div>
@@ -194,7 +194,7 @@ export const LiveMapView: React.FC = () => {
               </div>
             ) : selectedRoute ? (
               <div className="mt-3 space-y-3">
-                <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-[#E8F3FC] text-[#4688C8]">
+                <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-[#EEF2FF] text-[#2853f3]">
                   Route: {selectedRoute.mode.replace('_', ' ')}
                 </span>
                 <h4 className="font-bold text-xs text-[#152B44]">
@@ -208,7 +208,7 @@ export const LiveMapView: React.FC = () => {
                   </div>
                   <div className="flex justify-between">
                     <span className="text-[#516C8A]">ETA:</span>
-                    <span className="font-semibold text-[#4688C8]">{selectedRoute.estimatedHours} hrs</span>
+                    <span className="font-semibold text-[#2853f3]">{selectedRoute.estimatedHours} hrs</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-[#516C8A]">Status:</span>

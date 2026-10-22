@@ -37,7 +37,7 @@ export const MonitoringView: React.FC = () => {
   const getHazardIcon = (type: HazardType) => {
     switch (type) {
       case 'HEAVY_RAIN':
-        return <CloudRain className="w-4 h-4 text-[#4688C8]" />;
+        return <CloudRain className="w-4 h-4 text-[#2853f3]" />;
       case 'CYCLONE':
         return <Wind className="w-4 h-4 text-[#D9822B]" />;
       case 'EARTHQUAKE':
@@ -58,7 +58,7 @@ export const MonitoringView: React.FC = () => {
               onClick={() => setHazardFilter('ALL')}
               className={`px-3 py-1.5 text-xs rounded-md font-medium transition-colors cursor-pointer ${
                 hazardFilter === 'ALL'
-                  ? 'bg-[#4688C8] text-white shadow-xs'
+                  ? 'bg-[#2853f3] text-white shadow-xs'
                   : 'bg-[#E8F2FA] text-[#152B44] hover:bg-[#CFE2F2]'
               }`}
             >
@@ -68,7 +68,7 @@ export const MonitoringView: React.FC = () => {
               onClick={() => setHazardFilter('HEAVY_RAIN')}
               className={`flex items-center gap-1.5 px-3 py-1.5 text-xs rounded-md font-medium transition-colors cursor-pointer ${
                 hazardFilter === 'HEAVY_RAIN'
-                  ? 'bg-[#4688C8] text-white shadow-xs'
+                  ? 'bg-[#2853f3] text-white shadow-xs'
                   : 'bg-[#E8F2FA] text-[#152B44] hover:bg-[#CFE2F2]'
               }`}
             >
@@ -79,7 +79,7 @@ export const MonitoringView: React.FC = () => {
               onClick={() => setHazardFilter('CYCLONE')}
               className={`flex items-center gap-1.5 px-3 py-1.5 text-xs rounded-md font-medium transition-colors cursor-pointer ${
                 hazardFilter === 'CYCLONE'
-                  ? 'bg-[#4688C8] text-white shadow-xs'
+                  ? 'bg-[#2853f3] text-white shadow-xs'
                   : 'bg-[#E8F2FA] text-[#152B44] hover:bg-[#CFE2F2]'
               }`}
             >
@@ -90,7 +90,7 @@ export const MonitoringView: React.FC = () => {
               onClick={() => setHazardFilter('EARTHQUAKE')}
               className={`flex items-center gap-1.5 px-3 py-1.5 text-xs rounded-md font-medium transition-colors cursor-pointer ${
                 hazardFilter === 'EARTHQUAKE'
-                  ? 'bg-[#4688C8] text-white shadow-xs'
+                  ? 'bg-[#2853f3] text-white shadow-xs'
                   : 'bg-[#E8F2FA] text-[#152B44] hover:bg-[#CFE2F2]'
               }`}
             >
@@ -101,7 +101,7 @@ export const MonitoringView: React.FC = () => {
               onClick={() => setHazardFilter('TSUNAMI')}
               className={`flex items-center gap-1.5 px-3 py-1.5 text-xs rounded-md font-medium transition-colors cursor-pointer ${
                 hazardFilter === 'TSUNAMI'
-                  ? 'bg-[#4688C8] text-white shadow-xs'
+                  ? 'bg-[#2853f3] text-white shadow-xs'
                   : 'bg-[#E8F2FA] text-[#152B44] hover:bg-[#CFE2F2]'
               }`}
             >
@@ -117,7 +117,7 @@ export const MonitoringView: React.FC = () => {
               placeholder="Search alerts..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full px-3 py-1.5 text-xs bg-[#FFFFFF] border border-[#CFE2F2] rounded-md focus:outline-none focus:border-[#4688C8] text-[#152B44]"
+              className="w-full px-3 py-1.5 text-xs bg-[#FFFFFF] border border-[#CFE2F2] rounded-md focus:outline-none focus:border-[#2853f3] text-[#152B44]"
             />
           </div>
         </div>
@@ -140,8 +140,8 @@ export const MonitoringView: React.FC = () => {
                   onClick={() => setSelectedDisaster(disaster)}
                   className={`bg-white p-3.5 rounded-lg border transition-all cursor-pointer shadow-2xs ${
                     isSelected
-                      ? 'border-[#4688C8] ring-1 ring-[#4688C8] bg-[#FAFBFD]'
-                      : 'border-[#CFE2F2] hover:border-[#4688C8]'
+                      ? 'border-[#2853f3] ring-1 ring-[#2853f3] bg-[#FAFBFD]'
+                      : 'border-[#CFE2F2] hover:border-[#2853f3]'
                   }`}
                 >
                   <div className="flex items-start justify-between gap-3">
@@ -168,7 +168,7 @@ export const MonitoringView: React.FC = () => {
                         </div>
                         <h3 className="font-bold text-xs text-[#152B44] mt-1">{disaster.title}</h3>
                         <p className="text-[11px] text-[#516C8A] flex items-center gap-1 mt-0.5">
-                          <MapPin className="w-3 h-3 text-[#4688C8]" />
+                          <MapPin className="w-3 h-3 text-[#2853f3]" />
                           {disaster.location}, {disaster.state}
                         </p>
                       </div>
@@ -176,7 +176,7 @@ export const MonitoringView: React.FC = () => {
 
                     {/* Key Metric Display */}
                     <div className="text-right shrink-0">
-                      <div className="text-xs font-bold text-[#4688C8]">
+                      <div className="text-xs font-bold text-[#2853f3]">
                         {disaster.keyMetric.value}{' '}
                         <span className="font-normal text-[#516C8A]">
                           {disaster.keyMetric.unit}
@@ -244,7 +244,7 @@ export const MonitoringView: React.FC = () => {
               <div className="p-2.5 bg-[#FAFBFD] rounded border border-[#CFE2F2] text-[11px] space-y-1">
                 <div className="flex items-center justify-between text-[#152B44]">
                   <span>Model: {selectedDisaster.modelStatus.modelName}</span>
-                  <span className="font-semibold text-[#4688C8]">
+                  <span className="font-semibold text-[#2853f3]">
                     {selectedDisaster.modelStatus.executed ? 'Executed' : 'Standby'}
                   </span>
                 </div>
@@ -257,12 +257,12 @@ export const MonitoringView: React.FC = () => {
                   onClick={() => setActiveTab('map')}
                   className="w-full py-2 px-3 bg-[#E8F2FA] text-[#152B44] rounded text-xs font-medium hover:bg-[#CFE2F2] transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
                 >
-                  <MapPin className="w-3.5 h-3.5 text-[#4688C8]" />
+                  <MapPin className="w-3.5 h-3.5 text-[#2853f3]" />
                   <span>View on Map</span>
                 </button>
                 <button
                   onClick={() => setActiveTab('allocation')}
-                  className="w-full py-2 px-3 bg-[#4688C8] text-white rounded text-xs font-medium hover:bg-[#3374B2] transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
+                  className="w-full py-2 px-3 bg-[#2853f3] text-white rounded text-xs font-medium hover:bg-[#1e42d9] transition-colors flex items-center justify-center gap-1.5 cursor-pointer shadow-xs"
                 >
                   <span>Relief Allocation</span>
                 </button>
