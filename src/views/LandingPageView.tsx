@@ -167,7 +167,17 @@ export const LandingPageView: React.FC = () => {
                       loop
                       muted
                       playsInline
-                      className="w-full h-full object-contain select-none pointer-events-none"
+                      poster="/Disaster3.png"
+                      className="w-full h-full object-contain select-none pointer-events-none border-0 outline-none"
+                      style={{
+                        border: 'none',
+                        outline: 'none',
+                        transform: 'translateZ(0)',
+                        WebkitTransform: 'translateZ(0)',
+                        backfaceVisibility: 'hidden',
+                        WebkitBackfaceVisibility: 'hidden',
+                        clipPath: 'inset(1.5px)',
+                      }}
                     />
                   </div>
 

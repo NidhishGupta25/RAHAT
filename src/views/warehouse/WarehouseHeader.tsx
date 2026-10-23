@@ -14,7 +14,7 @@ export const WarehouseHeader: React.FC<WarehouseHeaderProps> = ({ onOpenAddResou
       case 'overview':
         return 'Warehouse Operations Dashboard';
       case 'profile':
-        return 'Depot & Facility Profile';
+        return profile.name;
       case 'inventory':
         return 'Resource Inventory & Stock Levels';
       case 'allocation-requests':
@@ -32,8 +32,6 @@ export const WarehouseHeader: React.FC<WarehouseHeaderProps> = ({ onOpenAddResou
       <div>
         <div className="flex items-center gap-1.5 text-[11px] text-[#516C8A]">
           <span>RAHAT Logistics</span>
-          <span>/</span>
-          <span className="font-semibold text-[#2853f3]">{profile.code}</span>
         </div>
         <h1 className="text-base sm:text-lg font-bold text-[#152B44] tracking-tight leading-snug">
           {getSectionTitle()}
@@ -59,9 +57,6 @@ export const WarehouseHeader: React.FC<WarehouseHeaderProps> = ({ onOpenAddResou
           <div className="text-left leading-tight hidden md:block">
             <div className="text-xs font-bold text-[#152B44] truncate max-w-[140px]">
               {profile.ownerName}
-            </div>
-            <div className="text-[10px] text-[#516C8A] truncate max-w-[140px]">
-              {profile.ownerTitle}
             </div>
           </div>
         </div>

@@ -2,15 +2,12 @@ import React, { useState } from 'react';
 import { useWarehouse } from '../../../context/WarehouseContext';
 import { InventoryTransactionType } from '../../../types';
 import {
-  History,
   Search,
   ArrowUpRight,
   ArrowDownLeft,
   RefreshCw,
-  SlidersHorizontal,
   PackageCheck,
   RotateCcw,
-  User,
   Calendar,
 } from 'lucide-react';
 
@@ -41,7 +38,7 @@ export const WarehouseHistoryTab: React.FC = () => {
         return (
           <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-[#FEF4E8] text-[#DE8838] border border-[#FCE2C4] inline-flex items-center gap-1">
             <PackageCheck className="w-3 h-3 text-[#DE8838]" />
-            Stock Reserved
+            Stock Allocated
           </span>
         );
       case 'STOCK_DISPATCHED':
@@ -68,69 +65,56 @@ export const WarehouseHistoryTab: React.FC = () => {
     }
   };
 
+  const TABS: { id: InventoryTransactionType | 'ALL'; label: string }[] = [
+    { id: 'ALL', label: 'All' },
+    { id: 'STOCK_DISPATCHED', label: 'Dispatched' },
+    { id: 'STOCK_RECEIVED', label: 'Received' },
+  ];
+
   return (
-    <div className="p-5 space-y-5 max-w-[1700px] mx-auto">
-      {/* Top Bar */}
-      <div className="bg-white p-4 rounded-xl border border-[#CFE2F2] shadow-2xs flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-        <div>
-          <div className="flex items-center gap-2">
-            <History className="w-5 h-5 text-[#2853f3]" />
-            <h2 className="text-base font-bold text-[#152B44]">Allocation History & Movement Trail</h2>
-          </div>
-          <p className="text-xs text-[#516C8A] mt-0.5">
-            Audit log of all emergency relief allocations, stock reservations, releases, and balance adjustments.
-          </p>
+    <div className="p-5 space-y-4 max-w-[1700px] mx-auto">
+      {/* Top Filter Tabs & Search Bar in single row (Header removed, space optimized) */}
+      <div className="bg-white p-3 rounded-xl border border-[#CFE2F2] shadow-2xs flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+        {/* Filter Tabs on the left */}
+        <div className="flex items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0 scrollbar-none">
+          {TABS.map((t) => {
+            const isSelected = typeFilter === t.id;
+            const count =
+              t.id === 'ALL' ? history.length : history.filter((h) => h.type === t.id).length;
+            return (
+              <button
+                key={t.id}
+                onClick={() => setTypeFilter(t.id)}
+                className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all border cursor-pointer flex items-center gap-1.5 ${
+                  isSelected
+                    ? 'bg-[#2853f3] text-white border-[#2853f3] shadow-xs'
+                    : 'bg-white text-[#516C8A] border-[#CFE2F2] hover:bg-[#F0F6FD]'
+                }`}
+              >
+                <span>{t.label}</span>
+                <span
+                  className={`text-[10px] px-1.5 py-0.2 rounded-full font-bold ${
+                    isSelected ? 'bg-white/20 text-white' : 'bg-[#E8F2FA] text-[#2853f3]'
+                  }`}
+                >
+                  {count}
+                </span>
+              </button>
+            );
+          })}
         </div>
 
-        {/* Search */}
-        <div className="relative w-full md:w-64">
+        {/* Search Bar on the right in line with the filters */}
+        <div className="relative w-full sm:w-64 shrink-0">
           <Search className="w-4 h-4 text-[#516C8A] absolute left-3 top-1/2 -translate-y-1/2" />
           <input
             type="text"
-            placeholder="Search reference, SKU, or user..."
+            placeholder="Search history..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full text-xs pl-9 pr-3 py-1.5 rounded-lg border border-[#CFE2F2] bg-[#FAFBFD] text-[#152B44] focus:outline-none focus:border-[#2853f3]"
           />
         </div>
-      </div>
-
-      {/* Filter Tabs */}
-      <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
-        {(
-          [
-            'ALL',
-            'STOCK_RECEIVED',
-            'STOCK_RESERVED',
-            'STOCK_DISPATCHED',
-            'STOCK_RETURNED',
-            'STOCK_ADJUSTED',
-          ] as const
-        ).map((t) => {
-          const isSelected = typeFilter === t;
-          const count =
-            t === 'ALL' ? history.length : history.filter((h) => h.type === t).length;
-          return (
-            <button
-              key={t}
-              onClick={() => setTypeFilter(t)}
-              className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all border cursor-pointer flex items-center gap-1.5 ${
-                isSelected
-                  ? 'bg-[#2853f3] text-white border-[#2853f3] shadow-xs'
-                  : 'bg-white text-[#516C8A] border-[#CFE2F2] hover:bg-[#F0F6FD]'
-              }`}
-            >
-              <span>{t === 'ALL' ? 'All Transactions' : t.replace('STOCK_', '').replace('_', ' ')}</span>
-              <span
-                className={`text-[10px] px-1.5 py-0.2 rounded-full font-bold ${
-                  isSelected ? 'bg-white/20 text-white' : 'bg-[#E8F2FA] text-[#2853f3]'
-                }`}
-              >
-                {count}
-              </span>
-            </button>
-          );
-        })}
       </div>
 
       {/* Table */}
@@ -174,7 +158,7 @@ export const WarehouseHistoryTab: React.FC = () => {
                     {/* Resource & Category */}
                     <td className="p-3">
                       <div className="font-bold text-[#152B44]">{item.resourceName}</div>
-                      <div className="text-[10px] text-[#516C8A]">{item.category}</div>
+                      <div className="text-[11px] text-[#516C8A]">{item.category}</div>
                     </td>
 
                     {/* Quantity Change */}
@@ -204,14 +188,11 @@ export const WarehouseHistoryTab: React.FC = () => {
 
                     {/* Authorized By */}
                     <td className="p-3 text-[11px] text-[#516C8A]">
-                      <div className="flex items-center gap-1 text-[#152B44] font-medium">
-                        <User className="w-3 h-3 text-[#2853f3]" />
-                        <span>{item.operator}</span>
-                      </div>
+                      {item.operator}
                     </td>
 
                     {/* Operational Notes */}
-                    <td className="p-3 pr-4 text-[11px] text-[#516C8A] max-w-xs truncate" title={item.notes}>
+                    <td className="p-3 pr-4 text-[11px] text-[#516C8A] max-w-xs truncate">
                       {item.notes}
                     </td>
                   </tr>

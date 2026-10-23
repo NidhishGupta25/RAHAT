@@ -6,7 +6,6 @@ import {
   Map,
   PackageCheck,
   Building2,
-  Route,
   ShieldCheck,
   User,
   LogOut,
@@ -32,7 +31,6 @@ const ADMIN_ITEMS: NavItem[] = [
   { id: 'allocation', label: 'Relief Allocation', icon: PackageCheck },
   { id: 'warehouses', label: 'Warehouses & Inventory', icon: Building2 },
   { id: 'partner-requests', label: 'Partner Requests', icon: ClipboardCheck },
-  { id: 'logistics', label: 'Routes & Logistics', icon: Route },
 ];
 
 export const Sidebar: React.FC = () => {
@@ -128,39 +126,42 @@ export const Sidebar: React.FC = () => {
             </div>
           </div>
 
-          <div>
-            <div className="px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-[#516C8A]">
-              Operations
+          {/* Operations: Admin-only pages (Relief alloc, warehouse & inventory, partner request). Hidden for public users without signin. */}
+          {isAdmin && (
+            <div>
+              <div className="px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-[#516C8A]">
+                Operations
+              </div>
+              <div className="space-y-0.5 mt-0.5">
+                {ADMIN_ITEMS.map((item) => {
+                  const Icon = item.icon;
+                  const isActive = activeTab === item.id;
+                  const isPartnerReq = item.id === 'partner-requests';
+                  return (
+                    <button
+                      key={item.id}
+                      onClick={() => setActiveTab(item.id)}
+                      className={`w-full flex items-center justify-between gap-1.5 px-2.5 py-1.5 rounded-md text-xs font-medium transition-colors cursor-pointer text-left ${
+                        isActive
+                          ? 'bg-[#EEF2FF] text-[#2853f3] font-semibold border-l-2 border-[#2853f3]'
+                          : 'text-[#152B44] hover:bg-[#F0F6FD] hover:text-[#2853f3]'
+                      }`}
+                    >
+                      <div className="flex items-center gap-2 min-w-0">
+                        <Icon className={`w-3.5 h-3.5 shrink-0 ${isActive ? 'text-[#2853f3]' : 'text-[#516C8A]'}`} />
+                        <span className="truncate">{item.label}</span>
+                      </div>
+                      {isPartnerReq && pendingCount > 0 && (
+                        <span className="text-[10px] font-bold px-1.5 py-0.2 rounded-full bg-amber-100 text-amber-800 border border-amber-200">
+                          {pendingCount}
+                        </span>
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
             </div>
-            <div className="space-y-0.5 mt-0.5">
-              {ADMIN_ITEMS.map((item) => {
-                const Icon = item.icon;
-                const isActive = activeTab === item.id;
-                const isPartnerReq = item.id === 'partner-requests';
-                return (
-                  <button
-                    key={item.id}
-                    onClick={() => setActiveTab(item.id)}
-                    className={`w-full flex items-center justify-between gap-1.5 px-2.5 py-1.5 rounded-md text-xs font-medium transition-colors cursor-pointer text-left ${
-                      isActive
-                        ? 'bg-[#EEF2FF] text-[#2853f3] font-semibold border-l-2 border-[#2853f3]'
-                        : 'text-[#152B44] hover:bg-[#F0F6FD] hover:text-[#2853f3]'
-                    }`}
-                  >
-                    <div className="flex items-center gap-2 min-w-0">
-                      <Icon className={`w-3.5 h-3.5 shrink-0 ${isActive ? 'text-[#2853f3]' : 'text-[#516C8A]'}`} />
-                      <span className="truncate">{item.label}</span>
-                    </div>
-                    {isPartnerReq && pendingCount > 0 && (
-                      <span className="text-[10px] font-bold px-1.5 py-0.2 rounded-full bg-amber-100 text-amber-800 border border-amber-200">
-                        {pendingCount}
-                      </span>
-                    )}
-                  </button>
-                );
-              })}
-            </div>
-          </div>
+          )}
         </nav>
       </div>
 

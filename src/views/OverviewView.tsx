@@ -2,10 +2,6 @@ import React from 'react';
 import { useApp } from '../context/AppContext';
 import { GisMap } from '../components/map/GisMap';
 import {
-  CloudRain,
-  Activity,
-  Wind,
-  Waves,
   Users,
   Package,
   AlertOctagon,
@@ -25,6 +21,7 @@ export const OverviewView: React.FC = () => {
     setActiveTab,
     setHazardFilter,
     activities,
+    currentUser,
   } = useApp();
 
   // Summary counts per hazard
@@ -54,8 +51,8 @@ export const OverviewView: React.FC = () => {
         >
           <div className="flex items-center justify-between mb-2">
             <div className="flex items-center gap-2">
-              <div className="w-7 h-7 rounded bg-[#EEF2FF] text-[#2853f3] flex items-center justify-center">
-                <CloudRain className="w-4 h-4" />
+              <div className="w-7 h-7 rounded bg-[#EEF2FF] flex items-center justify-center p-1">
+                <img src="/heavy-rain.png" className="w-5 h-5 object-contain" alt="Heavy Rain" />
               </div>
               <h3 className="font-semibold text-xs text-[#152B44]">Heavy Rain / Flood</h3>
             </div>
@@ -75,8 +72,8 @@ export const OverviewView: React.FC = () => {
         >
           <div className="flex items-center justify-between mb-2">
             <div className="flex items-center gap-2">
-              <div className="w-7 h-7 rounded bg-[#FEF4E8] text-[#D9822B] flex items-center justify-center">
-                <Wind className="w-4 h-4" />
+              <div className="w-7 h-7 rounded bg-[#FEF4E8] flex items-center justify-center p-1">
+                <img src="/tornado.png" className="w-5 h-5 object-contain" alt="Cyclone" />
               </div>
               <h3 className="font-semibold text-xs text-[#152B44]">Cyclones & Storms</h3>
             </div>
@@ -96,8 +93,8 @@ export const OverviewView: React.FC = () => {
         >
           <div className="flex items-center justify-between mb-2">
             <div className="flex items-center gap-2">
-              <div className="w-7 h-7 rounded bg-[#FEF4E8] text-[#D9822B] flex items-center justify-center">
-                <Activity className="w-4 h-4" />
+              <div className="w-7 h-7 rounded bg-[#FEF4E8] flex items-center justify-center p-1">
+                <img src="/earthquake.png" className="w-5 h-5 object-contain" alt="Earthquake" />
               </div>
               <h3 className="font-semibold text-xs text-[#152B44]">Earthquakes</h3>
             </div>
@@ -117,8 +114,8 @@ export const OverviewView: React.FC = () => {
         >
           <div className="flex items-center justify-between mb-2">
             <div className="flex items-center gap-2">
-              <div className="w-7 h-7 rounded bg-[#EBF7F1] text-[#359868] flex items-center justify-center">
-                <Waves className="w-4 h-4" />
+              <div className="w-7 h-7 rounded bg-[#EBF7F1] flex items-center justify-center p-1">
+                <img src="/tsunami.png" className="w-5 h-5 object-contain" alt="Tsunami" />
               </div>
               <h3 className="font-semibold text-xs text-[#152B44]">Tsunamis</h3>
             </div>
@@ -192,9 +189,9 @@ export const OverviewView: React.FC = () => {
       </div>
 
       {/* 3. Main Workspace: Map & Detail Panel */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-stretch">
         {/* Left: Interactive GIS Map */}
-        <div className="lg:col-span-8 bg-white p-3.5 rounded-lg border border-[#CFE2F2] shadow-2xs">
+        <div className="lg:col-span-8 bg-white p-3.5 rounded-lg border border-[#CFE2F2] shadow-2xs flex flex-col">
           <div className="flex items-center justify-between mb-2.5">
             <h2 className="text-xs font-bold text-[#152B44]">Hazard & Logistics Map</h2>
             <button
@@ -206,13 +203,13 @@ export const OverviewView: React.FC = () => {
             </button>
           </div>
 
-          <div className="h-[460px] w-full">
+          <div className="h-[500px] lg:h-[540px] w-full flex-1 min-h-[460px]">
             <GisMap />
           </div>
         </div>
 
         {/* Right: Detail Panel */}
-        <div className="lg:col-span-4 bg-white p-4 rounded-lg border border-[#CFE2F2] shadow-2xs flex flex-col justify-between">
+        <div className="lg:col-span-4 bg-white p-4 rounded-lg border border-[#CFE2F2] shadow-2xs flex flex-col justify-between min-h-[500px] lg:min-h-[540px]">
           <div>
             <div className="flex items-center justify-between pb-2.5 border-b border-[#CFE2F2]">
               <div className="text-xs font-bold text-[#152B44]">
@@ -292,12 +289,21 @@ export const OverviewView: React.FC = () => {
           </div>
 
           <div className="pt-3 border-t border-[#CFE2F2] mt-3 flex gap-2">
-            <button
-              onClick={() => setActiveTab('allocation')}
-              className="flex-1 py-1.5 px-3 bg-[#2853f3] text-white rounded text-xs font-medium hover:bg-[#1e42d9] transition-colors cursor-pointer text-center shadow-xs"
-            >
-              Allocate Relief
-            </button>
+            {currentUser?.roleType === 'admin' ? (
+              <button
+                onClick={() => setActiveTab('allocation')}
+                className="flex-1 py-1.5 px-3 bg-[#2853f3] text-white rounded text-xs font-medium hover:bg-[#1e42d9] transition-colors cursor-pointer text-center shadow-xs"
+              >
+                Allocate Relief
+              </button>
+            ) : (
+              <button
+                onClick={() => setActiveTab('map')}
+                className="flex-1 py-1.5 px-3 bg-[#2853f3] text-white rounded text-xs font-medium hover:bg-[#1e42d9] transition-colors cursor-pointer text-center shadow-xs"
+              >
+                Explore Live Map
+              </button>
+            )}
             <button
               onClick={() => setActiveTab('monitoring')}
               className="py-1.5 px-3 bg-[#E8F2FA] text-[#152B44] rounded text-xs font-medium hover:bg-[#CFE2F2] transition-colors cursor-pointer"

@@ -30,7 +30,6 @@ export type ActiveTab =
   | 'allocation'
   | 'warehouses'
   | 'partner-requests'
-  | 'logistics'
   | 'data-models';
 
 interface AppContextType {

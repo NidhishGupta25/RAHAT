@@ -19,8 +19,6 @@ export const TopHeader: React.FC = () => {
         return 'Warehouses & Stockpiles';
       case 'partner-requests':
         return 'Warehouse Partner Requests & Verification';
-      case 'logistics':
-        return 'Multimodal Routes & Convoys';
       case 'data-models':
         return 'Data Models & Feeds Health';
       default:

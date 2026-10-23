@@ -2,10 +2,6 @@ import React, { useState } from 'react';
 import { useApp } from '../context/AppContext';
 import { HazardType } from '../types';
 import {
-  CloudRain,
-  Activity,
-  Wind,
-  Waves,
   MapPin,
 } from 'lucide-react';
 
@@ -37,13 +33,13 @@ export const MonitoringView: React.FC = () => {
   const getHazardIcon = (type: HazardType) => {
     switch (type) {
       case 'HEAVY_RAIN':
-        return <CloudRain className="w-4 h-4 text-[#2853f3]" />;
+        return <img src="/heavy-rain.png" className="w-4 h-4 object-contain inline-block" alt="Rain" />;
       case 'CYCLONE':
-        return <Wind className="w-4 h-4 text-[#D9822B]" />;
+        return <img src="/tornado.png" className="w-4 h-4 object-contain inline-block" alt="Cyclone" />;
       case 'EARTHQUAKE':
-        return <Activity className="w-4 h-4 text-[#D9822B]" />;
+        return <img src="/earthquake.png" className="w-4 h-4 object-contain inline-block" alt="Earthquake" />;
       case 'TSUNAMI':
-        return <Waves className="w-4 h-4 text-[#359868]" />;
+        return <img src="/tsunami.png" className="w-4 h-4 object-contain inline-block" alt="Tsunami" />;
     }
   };
 
@@ -72,7 +68,7 @@ export const MonitoringView: React.FC = () => {
                   : 'bg-[#E8F2FA] text-[#152B44] hover:bg-[#CFE2F2]'
               }`}
             >
-              <CloudRain className="w-3.5 h-3.5" />
+              <img src="/heavy-rain.png" className="w-3.5 h-3.5 object-contain" alt="" />
               Heavy Rain & Flood
             </button>
             <button
@@ -83,7 +79,7 @@ export const MonitoringView: React.FC = () => {
                   : 'bg-[#E8F2FA] text-[#152B44] hover:bg-[#CFE2F2]'
               }`}
             >
-              <Wind className="w-3.5 h-3.5" />
+              <img src="/tornado.png" className="w-3.5 h-3.5 object-contain" alt="" />
               Cyclones & Storms
             </button>
             <button
@@ -94,7 +90,7 @@ export const MonitoringView: React.FC = () => {
                   : 'bg-[#E8F2FA] text-[#152B44] hover:bg-[#CFE2F2]'
               }`}
             >
-              <Activity className="w-3.5 h-3.5" />
+              <img src="/earthquake.png" className="w-3.5 h-3.5 object-contain" alt="" />
               Earthquakes
             </button>
             <button
@@ -105,7 +101,7 @@ export const MonitoringView: React.FC = () => {
                   : 'bg-[#E8F2FA] text-[#152B44] hover:bg-[#CFE2F2]'
               }`}
             >
-              <Waves className="w-3.5 h-3.5" />
+              <img src="/tsunami.png" className="w-3.5 h-3.5 object-contain" alt="" />
               Tsunamis
             </button>
           </div>

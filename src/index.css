@@ -56,7 +56,24 @@ body {
 .leaflet-container {
   font-family: inherit;
   background-color: #E8F1F9 !important;
+  width: 100%;
+  height: 100%;
 }
+
+.leaflet-marker-active {
+  filter: drop-shadow(0 0 6px rgba(40, 83, 243, 0.85));
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+/* Prevent Chromium sub-pixel 1px line / border artifacts on HTML5 video elements across all displays */
+video {
+  outline: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
 
 .leaflet-popup-content-wrapper {
   border-radius: 8px;

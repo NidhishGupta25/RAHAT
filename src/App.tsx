@@ -10,12 +10,20 @@ import { MonitoringView } from './views/MonitoringView';
 import { LiveMapView } from './views/LiveMapView';
 import { ReliefAllocationView } from './views/ReliefAllocationView';
 import { WarehousesView } from './views/WarehousesView';
-import { LogisticsView } from './views/LogisticsView';
 import { DataModelsView } from './views/DataModelsView';
 import { PartnerRequestsView } from './views/PartnerRequestsView';
 
 const MainAppContent: React.FC = () => {
-  const { currentPage, activeTab } = useApp();
+  const { currentPage, activeTab, currentUser, setActiveTab } = useApp();
+
+  const isAdmin = currentUser?.roleType === 'admin';
+  const isAdminTab = activeTab === 'allocation' || activeTab === 'warehouses' || activeTab === 'partner-requests';
+
+  React.useEffect(() => {
+    if (isAdminTab && !isAdmin) {
+      setActiveTab('overview');
+    }
+  }, [isAdminTab, isAdmin, setActiveTab]);
 
   // Landing page as first impression
   if (currentPage === 'landing') {
@@ -46,11 +54,11 @@ const MainAppContent: React.FC = () => {
           {activeTab === 'overview' && <OverviewView />}
           {activeTab === 'monitoring' && <MonitoringView />}
           {activeTab === 'map' && <LiveMapView />}
-          {activeTab === 'allocation' && <ReliefAllocationView />}
-          {activeTab === 'warehouses' && <WarehousesView />}
-          {activeTab === 'partner-requests' && <PartnerRequestsView />}
-          {activeTab === 'logistics' && <LogisticsView />}
+          {isAdmin && activeTab === 'allocation' && <ReliefAllocationView />}
+          {isAdmin && activeTab === 'warehouses' && <WarehousesView />}
+          {isAdmin && activeTab === 'partner-requests' && <PartnerRequestsView />}
           {activeTab === 'data-models' && <DataModelsView />}
+          {isAdminTab && !isAdmin && <OverviewView />}
         </main>
       </div>
     </div>

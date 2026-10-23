@@ -261,7 +261,7 @@ export const WarehouseProvider: React.FC<{ children: React.ReactNode }> = ({ chi
         id: `notif-${Date.now()}`,
         type: 'ALLOCATION_REQUEST',
         title: `Request ${targetReq.id} Accepted`,
-        message: `Inventory reserved and scheduled for staging for ${targetReq.affectedLocation}.`,
+        message: `Inventory allocated and scheduled for staging for ${targetReq.affectedLocation}.`,
         timestamp: 'Just now',
         isRead: false,
         priority: 'MEDIUM',

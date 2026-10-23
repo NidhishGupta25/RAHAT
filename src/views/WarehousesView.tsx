@@ -153,7 +153,6 @@ export const WarehousesView: React.FC = () => {
                 <th className="py-2.5 px-3">Item</th>
                 <th className="py-2.5 px-3">Category</th>
                 <th className="py-2.5 px-3 text-right">Total</th>
-                <th className="py-2.5 px-3 text-right">Reserved</th>
                 <th className="py-2.5 px-3 text-right">Available</th>
                 <th className="py-2.5 px-3 text-right">Threshold</th>
                 <th className="py-2.5 px-3 text-center">Status</th>
@@ -169,9 +168,6 @@ export const WarehousesView: React.FC = () => {
                   <td className="py-2.5 px-3 text-[#516C8A]">{item.category}</td>
                   <td className="py-2.5 px-3 text-right font-mono font-medium">
                     {item.total.toLocaleString()} {item.unit}
-                  </td>
-                  <td className="py-2.5 px-3 text-right font-mono text-[#516C8A]">
-                    {item.reserved.toLocaleString()} {item.unit}
                   </td>
                   <td className="py-2.5 px-3 text-right font-mono font-bold text-[#2853f3]">
                     {item.available.toLocaleString()} {item.unit}
